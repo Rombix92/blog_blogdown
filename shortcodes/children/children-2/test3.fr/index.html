@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.91.0" />
+    <meta name="description" content="Ceci est une page test">
+<meta name="author" content="Mathieu Cornic">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>page test 3 :: Documentation for Hugo Learn Theme</title>
+
+    
+    <link href="/css/nucleus.css?1640633803" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1640633803" rel="stylesheet">
+    <link href="/css/hybrid.css?1640633803" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1640633803" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1640633803" rel="stylesheet">
+    <link href="/css/auto-complete.css?1640633803" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1640633803" rel="stylesheet">
+    <link href="/css/theme.css?1640633803" rel="stylesheet">
+    <link href="/css/tabs.css?1640633803" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1640633803" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1640633803"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/shortcodes/children/children-2/test3.fr/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><style>img{display: block; margin-left: auto; margin-right: auto;}</style></head><body><img src="data:image/png;base64,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" alt="logo.png" style="max-width:100%;"></body></html>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1640633803"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1640633803"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1640633803"></script>
+
+    
+  </div>
+  
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/" title="Basics" class="dd-item
+        
+        
+        
+        ">
+      <a href="/basics/">
+          <b>1. </b>Basics
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/requirements/" title="Requirements" class="dd-item
+        
+        
+        
+        ">
+      <a href="/basics/requirements/">
+          Requirements
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/installation/" title="Installation" class="dd-item
+        
+        
+        
+        ">
+      <a href="/basics/installation/">
+          Installation
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/configuration/" title="Configuration" class="dd-item
+        
+        
+        
+        ">
+      <a href="/basics/configuration/">
+          Configuration
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/style-customization/" title="Style customization" class="dd-item
+        
+        
+        
+        ">
+      <a href="/basics/style-customization/">
+          Style customization
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/cont/" title="Content" class="dd-item
+        
+        
+        
+        ">
+      <a href="/cont/">
+          <b>2. </b>Content
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/cont/pages/" title="Pages organization" class="dd-item
+        
+        
+        
+        ">
+      <a href="/cont/pages/">
+          Pages organization
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/cont/archetypes/" title="Archetypes" class="dd-item ">
+        <a href="/cont/archetypes/">
+        Archetypes
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/cont/markdown/" title="Markdown syntax" class="dd-item ">
+        <a href="/cont/markdown/">
+        Markdown syntax
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/cont/syntaxhighlight/" title="Code highlighting" class="dd-item ">
+        <a href="/cont/syntaxhighlight/">
+        Code highlighting
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/cont/menushortcuts/" title="Menu extra shortcuts" class="dd-item ">
+        <a href="/cont/menushortcuts/">
+        Menu extra shortcuts
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/cont/icons/" title="Icons and logos" class="dd-item ">
+        <a href="/cont/icons/">
+        Icons and logos
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/cont/i18n/" title="Multilingual and i18n" class="dd-item
+        
+        
+        
+        ">
+      <a href="/cont/i18n/">
+          Multilingual and i18n
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/cont/tags/" title="Tags" class="dd-item ">
+        <a href="/cont/tags/">
+        Tags
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/" title="Shortcodes" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/shortcodes/">
+          <b>3. </b>Shortcodes
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/attachments/" title="Attachments" class="dd-item ">
+        <a href="/shortcodes/attachments/">
+        Attachments
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/attachments.fr/" title="Attachments (Pièces jointes)" class="dd-item ">
+        <a href="/shortcodes/attachments.fr/">
+        Attachments (Pièces jointes)
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/button/" title="Button" class="dd-item ">
+        <a href="/shortcodes/button/">
+        Button
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/button.fr/" title="Button (Bouton)" class="dd-item ">
+        <a href="/shortcodes/button.fr/">
+        Button (Bouton)
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/" title="Children" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/shortcodes/children/">
+          Children
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/children-1/" title="page 1" class="dd-item
+        
+        
+        
+        ">
+      <a href="/shortcodes/children/children-1/">
+          page 1
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/children-1/children-1-1/" title="page 1-1" class="dd-item
+        
+        
+        
+        ">
+      <a href="/shortcodes/children/children-1/children-1-1/">
+          page 1-1
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/children-1/children-1-1/children-1-1-1/" title="page 1-1-1" class="dd-item
+        
+        
+        
+        ">
+      <a href="/shortcodes/children/children-1/children-1-1/children-1-1-1/">
+          page 1-1-1
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/" title="page 1-1-1-1" class="dd-item
+        
+        
+        
+        ">
+      <a href="/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/">
+          page 1-1-1-1
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/children-1-1-1-1-1/" title="page 1-1-1-1-1" class="dd-item
+        
+        
+        
+        ">
+      <a href="/shortcodes/children/children-1/children-1-1/children-1-1-1/children-1-1-1-1/children-1-1-1-1-1/">
+          page 1-1-1-1-1
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/children-2/" title="page 2" class="dd-item
+        parent
+        
+        
+        ">
+      <a href="/shortcodes/children/children-2/">
+          page 2
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/children/children-2/test3/" title="page test 3" class="dd-item ">
+        <a href="/shortcodes/children/children-2/test3/">
+        page test 3
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/children/children-2/test3.fr/" title="page test 3" class="dd-item active">
+        <a href="/shortcodes/children/children-2/test3.fr/">
+        page test 3
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/shortcodes/children/children-3/" title="page 3" class="dd-item
+        
+        
+        
+        ">
+      <a href="/shortcodes/children/children-3/">
+          page 3
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/children/test/" title="page test" class="dd-item ">
+        <a href="/shortcodes/children/test/">
+        page test
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/children/test.fr/" title="page test" class="dd-item ">
+        <a href="/shortcodes/children/test.fr/">
+        page test
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/expand/" title="Expand" class="dd-item ">
+        <a href="/shortcodes/expand/">
+        Expand
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/expand.fr/" title="Expand" class="dd-item ">
+        <a href="/shortcodes/expand.fr/">
+        Expand
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/mermaid/" title="Mermaid" class="dd-item ">
+        <a href="/shortcodes/mermaid/">
+        Mermaid
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/mermaid.fr/" title="Mermaid" class="dd-item ">
+        <a href="/shortcodes/mermaid.fr/">
+        Mermaid
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/notice/" title="Notice" class="dd-item ">
+        <a href="/shortcodes/notice/">
+        Notice
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/notice.fr/" title="Notice" class="dd-item ">
+        <a href="/shortcodes/notice.fr/">
+        Notice
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/siteparam/" title="Site param" class="dd-item ">
+        <a href="/shortcodes/siteparam/">
+        Site param
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/siteparam.fr/" title="Site param" class="dd-item ">
+        <a href="/shortcodes/siteparam.fr/">
+        Site param
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/shortcodes/tabs/" title="Tabbed views" class="dd-item ">
+        <a href="/shortcodes/tabs/">
+        Tabbed views
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/post/" title="Posts" class="dd-item
+        
+        
+        
+        ">
+      <a href="/post/">
+          Posts
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/post/2020-12-01-r-rmarkdown/" title="Hello R Markdown" class="dd-item ">
+        <a href="/post/2020-12-01-r-rmarkdown/">
+        Hello R Markdown
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+      
+    </li>
+  
+ 
+
+          
+        
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li>
+                  <a class="padding" href="https://github.com/matcornic/hugo-theme-learn"><i class='fab fa-fw fa-github'></i> GitHub repo</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="/showcase"><i class='fas fa-fw fa-camera'></i> Showcases</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="/credits"><i class='fas fa-fw fa-bullhorn'></i> Credits</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <center>
+    
+    <a class="github-button" href="https://github.com/matcornic/hugo-theme-learn/archive/master.zip" data-icon="octicon-cloud-download" aria-label="Download matcornic/hugo-theme-learn on GitHub">Download</a>
+
+    
+    <a class="github-button" href="https://github.com/matcornic/hugo-theme-learn" data-icon="octicon-star" data-show-count="true" aria-label="Star matcornic/hugo-theme-learn on GitHub">Star</a>
+
+    
+    <a class="github-button" href="https://github.com/matcornic/hugo-theme-learn/fork" data-icon="octicon-repo-forked" data-show-count="true" aria-label="Fork matcornic/hugo-theme-learn on GitHub">Fork</a>
+
+    <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="https://getgrav.org">Grav</a> and <a href="https://gohugo.io/">Hugo</a></p>
+</center>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                  
+                  
+                  
+                  <div id="top-github-link">
+                    <a class="github-link" title='Edit this page' href="https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/shortcodes/children/children-2/test3.fr.md" target="blank">
+                      <i class="fas fa-code-branch"></i>
+                      <span id="top-github-link-text">Edit this page</span>
+                    </a>
+                  </div>
+                  
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Learn Theme for Hugo</a> > <a href='/shortcodes/'>Shortcodes</a> > <a href='/shortcodes/children/'>Children</a> > <a href='/shortcodes/children/children-2/'>page 2</a> > page test 3
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents"></nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              page test 3
+            </h1>
+          
+
+        
+
+
+<p>Ceci est une page de demo test 3</p>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/shortcodes/children/children-2/test3/" title="page test 3"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/shortcodes/children/children-3/" title="page 3" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1640633803"></script>
+    <script src="/js/perfect-scrollbar.min.js?1640633803"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1640633803"></script>
+    <script src="/js/jquery.sticky.js?1640633803"></script>
+    <script src="/js/featherlight.min.js?1640633803"></script>
+    <script src="/js/highlight.pack.js?1640633803"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1640633803"></script>
+    <script src="/js/learn.js?1640633803"></script>
+    <script src="/js/hugo-learn.js?1640633803"></script>
+    
+        
+            <script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-105947713-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
+
