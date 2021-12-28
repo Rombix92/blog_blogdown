@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Learn Theme for Hugo on Documentation for Hugo Learn Theme</title>
+    <title>Lukasz Rabalski website on Lukasz Rafalski website 2</title>
     <link>https://rombix92.github.io/blog_tutorial/</link>
-    <description>Recent content in Learn Theme for Hugo on Documentation for Hugo Learn Theme</description>
+    <description>Recent content in Lukasz Rabalski website on Lukasz Rafalski website 2</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <lastBuildDate>Tue, 28 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rombix92.github.io/blog_tutorial/index.xml" rel="self" type="application/rss+xml" />
@@ -204,7 +204,7 @@ A tip disclaimer
 For instance, in this current site, the editURL variable is used in config.toml
 [params] editURL = &amp;#34;https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/&amp;#34; Use the siteparam shortcode to display its value.
 `editURL` Value : {{% siteparam &amp;quot;editURL&amp;quot; %}} is displayed as
-editURL Value : https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/</description>
+editURL Value :</description>
     </item>
     
     <item>
