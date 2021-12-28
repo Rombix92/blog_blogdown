@@ -119,6 +119,20 @@
 	"content": "Learn theme support one default taxonomy of gohugo: the tag feature.\nConfiguration Just add tags to any page:\n--- date: 2018-11-29T08:41:44+01:00 title: Theme tutorial weight: 15 tags: [\u0026#34;tutorial\u0026#34;, \u0026#34;theme\u0026#34;] --- Behavior The tags are displayed at the top of the page, in their insertion order.\nEach tag is a link to a Taxonomy page displaying all the articles with the given tag.\nList all the tags In the config.toml file you can add a shortcut to display all the tags\n[[menu.shortcuts]] name = \u0026#34;\u0026lt;i class=\u0026#39;fas fa-tags\u0026#39;\u0026gt;\u0026lt;/i\u0026gt; Tags\u0026#34; url = \u0026#34;/tags\u0026#34; weight = 30 "
 },
 {
+	"uri": "https://rombix92.github.io/blog_tutorial/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://rombix92.github.io/blog_tutorial/categories/ggplot2/",
+	"title": "ggplot2",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
 	"uri": "https://rombix92.github.io/blog_tutorial/",
 	"title": "Learn Theme for Hugo",
 	"tags": [],
@@ -133,8 +147,15 @@
 	"content": ""
 },
 {
-	"uri": "https://rombix92.github.io/blog_tutorial/categories/",
-	"title": "Categories",
+	"uri": "https://rombix92.github.io/blog_tutorial/categories/python/",
+	"title": "python",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://rombix92.github.io/blog_tutorial/categories/scatterplot/",
+	"title": "scatterplot",
 	"tags": [],
 	"description": "",
 	"content": ""

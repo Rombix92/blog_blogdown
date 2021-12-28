@@ -3,7 +3,7 @@ title: 'z2'
 author: Lukasz Rabalski
 date: '2021-12-28'
 slug: []
-categories: []
+categories: ['ggplot2','python','scatterplot']
 tags: []
 weight: 5
 ---
