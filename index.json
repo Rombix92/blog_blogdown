@@ -1,5 +1,12 @@
 [
 {
+	"uri": "https://rombix92.github.io/blog/post/2021-12-28-/",
+	"title": "z2",
+	"tags": [],
+	"description": "",
+	"content": "  Lorem Ipsum.\n"
+},
+{
 	"uri": "https://rombix92.github.io/blog/basics/",
 	"title": "Basics",
 	"tags": [],
@@ -12,6 +19,13 @@
 	"tags": [],
 	"description": "",
 	"content": "In Hugo, pages are the core of your site. Once it is configured, pages are definitely the added value to your documentation site.\nFolders Organize your site like any other Hugo project. Typically, you will have a content folder with all your pages.\ncontent ├── level-one │ ├── level-two │ │ ├── level-three │ │ │ ├── level-four │ │ │ │ ├── _index.md \u0026lt;-- /level-one/level-two/level-three/level-four │ │ │ │ ├── page-4-a.md \u0026lt;-- /level-one/level-two/level-three/level-four/page-4-a │ │ │ │ ├── page-4-b.md \u0026lt;-- /level-one/level-two/level-three/level-four/page-4-b │ │ │ │ └── page-4-c.md \u0026lt;-- /level-one/level-two/level-three/level-four/page-4-c │ │ │ ├── _index.md \u0026lt;-- /level-one/level-two/level-three │ │ │ ├── page-3-a.md \u0026lt;-- /level-one/level-two/level-three/page-3-a │ │ │ ├── page-3-b.md \u0026lt;-- /level-one/level-two/level-three/page-3-b │ │ │ └── page-3-c.md \u0026lt;-- /level-one/level-two/level-three/page-3-c │ │ ├── _index.md \u0026lt;-- /level-one/level-two │ │ ├── page-2-a.md \u0026lt;-- /level-one/level-two/page-2-a │ │ ├── page-2-b.md \u0026lt;-- /level-one/level-two/page-2-b │ │ └── page-2-c.md \u0026lt;-- /level-one/level-two/page-2-c │ ├── _index.md \u0026lt;-- /level-one │ ├── page-1-a.md \u0026lt;-- /level-one/page-1-a │ ├── page-1-b.md \u0026lt;-- /level-one/page-1-b │ └── page-1-c.md \u0026lt;-- /level-one/page-1-c ├── _index.md \u0026lt;-- / └── page-top.md \u0026lt;-- /page-top  _index.md is required in each folder, it’s your “folder home page”\n Types Hugo-theme-learn defines two types of pages. Default and Chapter. Both can be used at any level of the documentation, the only difference being layout display.\nA Chapter displays a page meant to be used as introduction for a set of child pages. Commonly, it contains a simple title and a catch line to define content that can be found under it. You can define any HTML as prefix for the menu. In the example below, it\u0026rsquo;s just a number but that could be an icon.\n+++ title = \u0026#34;Basics\u0026#34; chapter = true weight = 5 pre = \u0026#34;\u0026lt;b\u0026gt;1. \u0026lt;/b\u0026gt;\u0026#34; +++ ### Chapter 1  # Basics Discover what this Hugo theme is all about and the core-concepts behind it. To tell Hugo-theme-learn to consider a page as a chapter, set chapter=true in the Front Matter of the page.\nA Default page is any other content page.\n+++ title = \u0026#34;Installation\u0026#34; weight = 15 +++ The following steps are here to help you initialize your new website. If you don\u0026rsquo;t know Hugo at all, we strongly suggest you to train by following this great documentation for beginners.\nCreate your project Hugo provides a new command to create a new website.\nhugo new site \u0026lt;new_project\u0026gt; Hugo-theme-learn provides archetypes to help you create this kind of pages.\nFront Matter configuration Each Hugo page has to define a Front Matter in yaml, toml or json.\nHugo-theme-learn uses the following parameters on top of Hugo ones :\n+++ # Table of content (toc) is enabled by default. Set this parameter to true to disable it. # Note: Toc is always disabled for chapter pages disableToc = \u0026#34;false\u0026#34; # If set, this will be used for the page\u0026#39;s menu entry (instead of the `title` attribute) menuTitle = \u0026#34;\u0026#34; # The title of the page in menu will be prefixed by this HTML content pre = \u0026#34;\u0026#34; # The title of the page in menu will be postfixed by this HTML content post = \u0026#34;\u0026#34; # Set the page as a chapter, changing the way it\u0026#39;s displayed chapter = false # Hide a menu entry by setting this to true hidden = false # Display name of this page modifier. If set, it will be displayed in the footer. LastModifierDisplayName = \u0026#34;\u0026#34; # Email of this page modifier. If set with LastModifierDisplayName, it will be displayed in the footer LastModifierEmail = \u0026#34;\u0026#34; +++ Add icon to a menu entry In the page frontmatter, add a pre param to insert any HTML code before the menu label. The example below uses the Github icon.\n+++ title = \u0026#34;Github repo\u0026#34; pre = \u0026#34;\u0026lt;i class=\u0026#39;fab fa-github\u0026#39;\u0026gt;\u0026lt;/i\u0026gt; \u0026#34; +++ Ordering sibling menu/page entries Hugo provides a flexible way to handle order for your pages.\nThe simplest way is to set weight parameter to a number.\n+++ title = \u0026#34;My page\u0026#34; weight = 5 +++ Using a custom title for menu entries By default, Hugo-theme-learn will use a page\u0026rsquo;s title attribute for the menu item (or linkTitle if defined).\nBut a page\u0026rsquo;s title has to be descriptive on its own while the menu is a hierarchy. We\u0026rsquo;ve added the menuTitle parameter for that purpose:\nFor example (for a page named content/install/linux.md):\n+++ title = \u0026#34;Install on Linux\u0026#34; menuTitle = \u0026#34;Linux\u0026#34; +++ Homepage To configure your home page, you basically have three choices:\n Create an _index.md document in content folder and fill the file with Markdown content Create an index.html file in the static folder and fill the file with HTML content Configure your server to automatically redirect home page to one your documentation page  "
+},
+{
+	"uri": "https://rombix92.github.io/blog/post/2020-12-01-r-rmarkdown/",
+	"title": "Hello R Markdown",
+	"tags": ["R Markdown", "plot", "regression"],
+	"description": "",
+	"content": "  R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.\nYou can embed an R code chunk like this:\nsummary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.:19.0 3rd Qu.: 56.00 ## Max. :25.0 Max. :120.00 fit \u0026lt;- lm(dist ~ speed, data = cars) fit ## ## Call: ## lm(formula = dist ~ speed, data = cars) ## ## Coefficients: ## (Intercept) speed ## -17.579 3.932  Including Plots You can also embed plots. See Figure 1 for example:\npar(mar = c(0, 1, 0, 1)) pie( c(280, 60, 20), c(\u0026#39;Sky\u0026#39;, \u0026#39;Sunny side of pyramid\u0026#39;, \u0026#39;Shady side of pyramid\u0026#39;), col = c(\u0026#39;#0292D8\u0026#39;, \u0026#39;#F7EA39\u0026#39;, \u0026#39;#C4B632\u0026#39;), init.angle = -50, border = NA )  Figure 1: A fancy pie chart.   "
 },
 {
 	"uri": "https://rombix92.github.io/blog/cont/",
@@ -105,20 +119,6 @@
 	"content": "Learn theme support one default taxonomy of gohugo: the tag feature.\nConfiguration Just add tags to any page:\n--- date: 2018-11-29T08:41:44+01:00 title: Theme tutorial weight: 15 tags: [\u0026#34;tutorial\u0026#34;, \u0026#34;theme\u0026#34;] --- Behavior The tags are displayed at the top of the page, in their insertion order.\nEach tag is a link to a Taxonomy page displaying all the articles with the given tag.\nList all the tags In the config.toml file you can add a shortcut to display all the tags\n[[menu.shortcuts]] name = \u0026#34;\u0026lt;i class=\u0026#39;fas fa-tags\u0026#39;\u0026gt;\u0026lt;/i\u0026gt; Tags\u0026#34; url = \u0026#34;/tags\u0026#34; weight = 30 "
 },
 {
-	"uri": "https://rombix92.github.io/blog/categories/",
-	"title": "Categories",
-	"tags": [],
-	"description": "",
-	"content": ""
-},
-{
-	"uri": "https://rombix92.github.io/blog/post/2020-12-01-r-rmarkdown/",
-	"title": "Hello R Markdown",
-	"tags": ["R Markdown", "plot", "regression"],
-	"description": "",
-	"content": "  R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.\nYou can embed an R code chunk like this:\nsummary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.:19.0 3rd Qu.: 56.00 ## Max. :25.0 Max. :120.00 fit \u0026lt;- lm(dist ~ speed, data = cars) fit ## ## Call: ## lm(formula = dist ~ speed, data = cars) ## ## Coefficients: ## (Intercept) speed ## -17.579 3.932  Including Plots You can also embed plots. See Figure 1 for example:\npar(mar = c(0, 1, 0, 1)) pie( c(280, 60, 20), c(\u0026#39;Sky\u0026#39;, \u0026#39;Sunny side of pyramid\u0026#39;, \u0026#39;Shady side of pyramid\u0026#39;), col = c(\u0026#39;#0292D8\u0026#39;, \u0026#39;#F7EA39\u0026#39;, \u0026#39;#C4B632\u0026#39;), init.angle = -50, border = NA )  Figure 1: A fancy pie chart.   "
-},
-{
 	"uri": "https://rombix92.github.io/blog/",
 	"title": "Learn Theme for Hugo",
 	"tags": [],
@@ -126,15 +126,22 @@
 	"content": "  Hugo learn theme  "
 },
 {
-	"uri": "https://rombix92.github.io/blog/tags/plot/",
-	"title": "plot",
+	"uri": "https://rombix92.github.io/blog/post/",
+	"title": "Posts",
 	"tags": [],
 	"description": "",
 	"content": ""
 },
 {
-	"uri": "https://rombix92.github.io/blog/post/",
-	"title": "Posts",
+	"uri": "https://rombix92.github.io/blog/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "https://rombix92.github.io/blog/tags/plot/",
+	"title": "plot",
 	"tags": [],
 	"description": "",
 	"content": ""

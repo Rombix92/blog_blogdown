@@ -2,11 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://rombix92.github.io/blog/post/2021-12-28-/</loc>
+    <lastmod>2021-12-28T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://rombix92.github.io/blog/basics/</loc>
     <lastmod>2016-04-09T16:50:16+02:00</lastmod>
   </url><url>
     <loc>https://rombix92.github.io/blog/cont/pages/</loc>
     <lastmod>2016-04-09T16:50:16+02:00</lastmod>
+  </url><url>
+    <loc>https://rombix92.github.io/blog/post/2020-12-01-r-rmarkdown/</loc>
+    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
     <loc>https://rombix92.github.io/blog/cont/</loc>
     <lastmod>2020-06-01T13:31:12+01:00</lastmod>
@@ -43,19 +49,16 @@
     <loc>https://rombix92.github.io/blog/cont/tags/</loc>
     <lastmod>2018-11-29T08:41:44+01:00</lastmod>
   </url><url>
+    <loc>https://rombix92.github.io/blog/</loc>
+    <lastmod>2021-12-28T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://rombix92.github.io/blog/post/</loc>
+    <lastmod>2021-12-28T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://rombix92.github.io/blog/categories/</loc>
     <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://rombix92.github.io/blog/post/2020-12-01-r-rmarkdown/</loc>
-    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
-  </url><url>
-    <loc>https://rombix92.github.io/blog/</loc>
-    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
-  </url><url>
     <loc>https://rombix92.github.io/blog/tags/plot/</loc>
-    <lastmod>2020-12-01T21:13:14-05:00</lastmod>
-  </url><url>
-    <loc>https://rombix92.github.io/blog/post/</loc>
     <lastmod>2020-12-01T21:13:14-05:00</lastmod>
   </url><url>
     <loc>https://rombix92.github.io/blog/categories/r/</loc>
