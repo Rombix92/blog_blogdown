@@ -2,53 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Documentation for Hugo Learn Theme</title>
-    <link>https://rombix92.github.io/blog/tags/</link>
+    <link>https://rombix92.github.io/blog_tutorial/tags/</link>
     <description>Recent content in Tags on Documentation for Hugo Learn Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 01 Dec 2020 21:13:14 -0500</lastBuildDate><atom:link href="https://rombix92.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Dec 2020 21:13:14 -0500</lastBuildDate><atom:link href="https://rombix92.github.io/blog_tutorial/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>plot</title>
-      <link>https://rombix92.github.io/blog/tags/plot/</link>
+      <link>https://rombix92.github.io/blog_tutorial/tags/plot/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
       
-      <guid>https://rombix92.github.io/blog/tags/plot/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/tags/plot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Markdown</title>
-      <link>https://rombix92.github.io/blog/tags/r-markdown/</link>
+      <link>https://rombix92.github.io/blog_tutorial/tags/r-markdown/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
       
-      <guid>https://rombix92.github.io/blog/tags/r-markdown/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/tags/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>regression</title>
-      <link>https://rombix92.github.io/blog/tags/regression/</link>
+      <link>https://rombix92.github.io/blog_tutorial/tags/regression/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
       
-      <guid>https://rombix92.github.io/blog/tags/regression/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/tags/regression/</guid>
       <description></description>
     </item>
     
     <item>
       <title>documentation</title>
-      <link>https://rombix92.github.io/blog/tags/documentation/</link>
+      <link>https://rombix92.github.io/blog_tutorial/tags/documentation/</link>
       <pubDate>Thu, 29 Nov 2018 08:41:44 +0100</pubDate>
       
-      <guid>https://rombix92.github.io/blog/tags/documentation/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/tags/documentation/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tutorial</title>
-      <link>https://rombix92.github.io/blog/tags/tutorial/</link>
+      <link>https://rombix92.github.io/blog_tutorial/tags/tutorial/</link>
       <pubDate>Thu, 29 Nov 2018 08:41:44 +0100</pubDate>
       
-      <guid>https://rombix92.github.io/blog/tags/tutorial/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/tags/tutorial/</guid>
       <description></description>
     </item>
     

@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Learn Theme for Hugo on Documentation for Hugo Learn Theme</title>
-    <link>https://rombix92.github.io/blog/</link>
+    <link>https://rombix92.github.io/blog_tutorial/</link>
     <description>Recent content in Learn Theme for Hugo on Documentation for Hugo Learn Theme</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
-    <lastBuildDate>Tue, 28 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rombix92.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://rombix92.github.io/blog_tutorial/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>z2</title>
-      <link>https://rombix92.github.io/blog/post/2021-12-28-/</link>
+      <link>https://rombix92.github.io/blog_tutorial/post/2021-12-28-/</link>
       <pubDate>Tue, 28 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/post/2021-12-28-/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/post/2021-12-28-/</guid>
       <description>Lorem Ipsum.</description>
     </item>
     
     <item>
       <title>Hello R Markdown</title>
-      <link>https://rombix92.github.io/blog/post/2020-12-01-r-rmarkdown/</link>
+      <link>https://rombix92.github.io/blog_tutorial/post/2020-12-01-r-rmarkdown/</link>
       <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
       
-      <guid>https://rombix92.github.io/blog/post/2020-12-01-r-rmarkdown/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/post/2020-12-01-r-rmarkdown/</guid>
       <description>R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
 You can embed an R code chunk like this:
 summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.</description>
@@ -29,10 +29,10 @@ summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 2
     
     <item>
       <title>Archetypes</title>
-      <link>https://rombix92.github.io/blog/cont/archetypes/</link>
+      <link>https://rombix92.github.io/blog_tutorial/cont/archetypes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/cont/archetypes/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/cont/archetypes/</guid>
       <description>Using the command: hugo new [relative new content path], you can start a content file with the date and title automatically set. While this is a welcome feature, active writers need more: archetypes.
 It is pre-configured skeleton pages with default front matter. Please refer to the documentation for types of page to understand the differences.
 Chapter To create a Chapter page, run the following commands
@@ -41,10 +41,10 @@ hugo new --kind chapter &amp;lt;name&amp;gt;/_index.md It will create a page wit
     
     <item>
       <title>Markdown syntax</title>
-      <link>https://rombix92.github.io/blog/cont/markdown/</link>
+      <link>https://rombix92.github.io/blog_tutorial/cont/markdown/</link>
       <pubDate>Sat, 09 Apr 2016 16:50:16 +0200</pubDate>
       
-      <guid>https://rombix92.github.io/blog/cont/markdown/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/cont/markdown/</guid>
       <description>This page is a shameful copy of the great Grav original page. Only difference is information about image customization (resizing, add CSS classes&amp;hellip;)
  Let&amp;rsquo;s face it: Writing content for the Web is tiresome. WYSIWYG editors help alleviate this task, but they generally result in horrible code, or worse yet, ugly web pages.
 Markdown is a better way to write HTML, without all the complexities and ugliness that usually accompanies it.</description>
@@ -52,10 +52,10 @@ Markdown is a better way to write HTML, without all the complexities and uglines
     
     <item>
       <title>Code highlighting</title>
-      <link>https://rombix92.github.io/blog/cont/syntaxhighlight/</link>
+      <link>https://rombix92.github.io/blog_tutorial/cont/syntaxhighlight/</link>
       <pubDate>Mon, 01 Jun 2020 13:31:12 +0100</pubDate>
       
-      <guid>https://rombix92.github.io/blog/cont/syntaxhighlight/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/cont/syntaxhighlight/</guid>
       <description>Learn theme uses highlight.js to provide code syntax highlighting.
 Markdown syntax Wrap the code block with three backticks and the name of the language. Highlight will try to auto detect the language if one is not provided.
 ```json [ { &amp;#34;title&amp;#34;: &amp;#34;apples&amp;#34;, &amp;#34;count&amp;#34;: [12000, 20000], &amp;#34;description&amp;#34;: {&amp;#34;text&amp;#34;: &amp;#34;...&amp;#34;, &amp;#34;sensitive&amp;#34;: false} }, { &amp;#34;title&amp;#34;: &amp;#34;oranges&amp;#34;, &amp;#34;count&amp;#34;: [17500, null], &amp;#34;description&amp;#34;: {&amp;#34;text&amp;#34;: &amp;#34;...&amp;#34;, &amp;#34;sensitive&amp;#34;: false} } ] ``` Renders to:
@@ -64,10 +64,10 @@ Markdown syntax Wrap the code block with three backticks and the name of the lan
     
     <item>
       <title>Menu extra shortcuts</title>
-      <link>https://rombix92.github.io/blog/cont/menushortcuts/</link>
+      <link>https://rombix92.github.io/blog_tutorial/cont/menushortcuts/</link>
       <pubDate>Sat, 09 Apr 2016 16:50:16 +0200</pubDate>
       
-      <guid>https://rombix92.github.io/blog/cont/menushortcuts/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/cont/menushortcuts/</guid>
       <description>You can define additional menu entries or shortcuts in the navigation menu without any link to content.
 Basic configuration Edit the website configuration config.toml and add a [[menu.shortcuts]] entry for each link your want to add.
 Example from the current website:
@@ -76,10 +76,10 @@ Example from the current website:
     
     <item>
       <title>Icons and logos</title>
-      <link>https://rombix92.github.io/blog/cont/icons/</link>
+      <link>https://rombix92.github.io/blog_tutorial/cont/icons/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/cont/icons/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/cont/icons/</guid>
       <description>The Learn theme for Hugo loads the Font Awesome library, allowing you to easily display any icon or logo available in the Font Awesome free collection.
 Finding an icon Browse through the available icons in the Font Awesome Gallery. Notice that the free filter is enabled, as only the free icons are available by default.
 Once on the Font Awesome page for a specific icon, for example the page for the heart, copy the HTML reference and paste into the markdown content.</description>
@@ -87,10 +87,10 @@ Once on the Font Awesome page for a specific icon, for example the page for the 
     
     <item>
       <title>Tags</title>
-      <link>https://rombix92.github.io/blog/cont/tags/</link>
+      <link>https://rombix92.github.io/blog_tutorial/cont/tags/</link>
       <pubDate>Thu, 29 Nov 2018 08:41:44 +0100</pubDate>
       
-      <guid>https://rombix92.github.io/blog/cont/tags/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/cont/tags/</guid>
       <description>Learn theme support one default taxonomy of gohugo: the tag feature.
 Configuration Just add tags to any page:
 --- date: 2018-11-29T08:41:44+01:00 title: Theme tutorial weight: 15 tags: [&amp;#34;tutorial&amp;#34;, &amp;#34;theme&amp;#34;] --- Behavior The tags are displayed at the top of the page, in their insertion order.
@@ -100,10 +100,10 @@ List all the tags In the config.toml file you can add a shortcut to display all 
     
     <item>
       <title>Attachments</title>
-      <link>https://rombix92.github.io/blog/shortcodes/attachments/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/attachments/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/attachments/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/attachments/</guid>
       <description>The Attachments shortcode displays a list of files attached to a page.
   Attachments   BachGavotteShort.mp3 (357 KB)   Carroll_AliceAuPaysDesMerveilles.pdf (175 KB)   adivorciarsetoca00cape.pdf (361 KB)   hugo.png (17 KB)   movieselectricsheep-flock-244-32500-2.mp4 (340 KB)   small_file.txt (48 B)    Usage The shortcurt lists files found in a specific folder. Currently, it support two implementations for pages
   If your page is a markdown file, attachements must be placed in a folder named like your page and ending with .</description>
@@ -111,40 +111,40 @@ List all the tags In the config.toml file you can add a shortcut to display all 
     
     <item>
       <title>Button</title>
-      <link>https://rombix92.github.io/blog/shortcodes/button/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/button/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/button/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/button/</guid>
       <description>A button is a just a clickable button with optional icon.
 {{% button href=&amp;quot;https://getgrav.org/&amp;quot; %}}Get Grav{{% /button %}} {{% button href=&amp;quot;https://getgrav.org/&amp;quot; icon=&amp;quot;fas fa-download&amp;quot; %}}Get Grav with icon{{% /button %}} {{% button href=&amp;quot;https://getgrav.org/&amp;quot; icon=&amp;quot;fas fa-download&amp;quot; icon-position=&amp;quot;right&amp;quot; %}}Get Grav with icon right{{% /button %}}  Get Grav   Get Grav with icon  Get Grav with icon right   </description>
     </item>
     
     <item>
       <title>Credits</title>
-      <link>https://rombix92.github.io/blog/credits/</link>
+      <link>https://rombix92.github.io/blog_tutorial/credits/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/credits/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/credits/</guid>
       <description>Contributors Thanks to them  for making Open Source Software a better place !
 .ghContributors{ display:flex; flex-flow: wrap; align-content: flex-start } .ghContributors  div{ width: 50% ; display: inline-flex; margin-bottom: 5px; } .ghContributors  div label{ padding-left: 4px ; } .ghContributors  div span{ font-size: x-small; padding-left: 4px ; }   @matcornic 162 commits   @matalo33 48 commits   @coliff 19 commits   @lierdakil 16 commits   @mdavids 10 commits   @ozobi 5 commits   @Xipas 5 commits   @Alan-Cha 4 commits   @pdelaby 4 commits   @helfper 4 commits   @Chris-Greaves 3 commits   @mreithub 3 commits   @massimeddu 3 commits   @LinuxSuRen 3 commits   @dptelecom 3 commits   @willwade 3 commits   @diemol 2 commits   @denisvm 2 commits   @gpospelov 2 commits   @hucste 2 commits   @ImgBotApp 2 commits   @jamesbooker 2 commits   @tanzaho 2 commits   @wikijm 2 commits   @lfalin 2 commits   @mirisbowring 2 commits   @JianLoong 2 commits   @armsnyder 1 commits   @afilini 1 commits   @alexvargasbenamburg 1 commits   @AmirLavasani 1 commits   @afs2015 1 commits   @arifpedia 1 commits   @berryp 1 commits   @MrMoio 1 commits   @ChrisLasar 1 commits   @DCsunset 1 commits   @IEvangelist 1 commits   @fritzmg 1 commits   @bogaertg 1 commits   @geoffreybauduin 1 commits   @giuliov 1 commits   @haitch 1 commits   @zeegin 1 commits   @RealOrangeOne 1 commits   @jared-stehler 1 commits   @JohnBlood 1 commits   @JohnTrammellTarget 1 commits   @JohnAllen2tgt 1 commits   @kamilchm 1 commits   @gwleclerc 1 commits   @lloydbenson 1 commits   @massimocireddu 1 commits   @sykesm 1 commits   @nvasudevan 1 commits   @nnja 1 commits   @owulveryck 1 commits   @654wak654 1 commits   @PierreAdam 1 commits   @qiwenmin 1 commits   @ripienaar 1 commits   @stou 1 commits   @razonyang 1 commits   @HontoNoRoger 1 commits   @pocc 1 commits   @EnigmaCurry 1 commits   @taiidani 1 commits   @exKAZUu 1 commits   @Oddly 1 commits   @sandrogauci 1 commits   @shelane 1 commits   @mbbx6spp 1 commits   @swenzel 1 commits   @tedyoung 1 commits   @Thiht 1 commits   @editicalu 1 commits   @fossabot 1 commits   @kamar535 1 commits   @mtbt03 1 commits   @ngocbichdao 1 commits   @nonumeros 1 commits   @pgorod 1 commits   @proelbtn 1 commits   And a special thanks to @vjeantet for his work on docdock, a fork of hugo-theme-learn.</description>
     </item>
     
     <item>
       <title>Expand</title>
-      <link>https://rombix92.github.io/blog/shortcodes/expand/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/expand/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/expand/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/expand/</guid>
       <description>The Expand shortcode displays an expandable/collapsible section of text on your page. Here is an example
   Expand me...   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</description>
     </item>
     
     <item>
       <title>Mermaid</title>
-      <link>https://rombix92.github.io/blog/shortcodes/mermaid/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/mermaid/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/mermaid/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/mermaid/</guid>
       <description>Mermaid is a library helping you to generate diagram and flowcharts from text, in a similar manner as Markdown.
 Just insert your mermaid code in the mermaid shortcode and that&amp;rsquo;s it.
 Flowchart example {{&amp;lt;mermaid align=&amp;quot;left&amp;quot;&amp;gt;}} graph LR; A[Hard edge] --&amp;gt;|Link text| B(Round edge) B --&amp;gt; C{Decision} C --&amp;gt;|One| D[Result one] C --&amp;gt;|Two| E[Result two] {{&amp;lt; /mermaid &amp;gt;}}  renders as
@@ -153,10 +153,10 @@ graph LR; A[Hard edge] --|Link text| B(Round edge) B -- C{Decision} C --|One| D[
     
     <item>
       <title>Notice</title>
-      <link>https://rombix92.github.io/blog/shortcodes/notice/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/notice/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/notice/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/notice/</guid>
       <description>The notice shortcode shows 4 types of disclaimers to help you structure your page.
 Note {{% notice note %}} A notice disclaimer {{% /notice %}} renders as
 A notice disclaimer
@@ -169,37 +169,37 @@ A tip disclaimer
     
     <item>
       <title>page test</title>
-      <link>https://rombix92.github.io/blog/shortcodes/children/test/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/children/test/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/children/test/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/children/test/</guid>
       <description>This is a test demo child page</description>
     </item>
     
     <item>
       <title>page test 3</title>
-      <link>https://rombix92.github.io/blog/shortcodes/children/children-2/test3/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/children/children-2/test3/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/children/children-2/test3/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/children/children-2/test3/</guid>
       <description>This is a test 3 demo child page</description>
     </item>
     
     <item>
       <title>Showcase</title>
-      <link>https://rombix92.github.io/blog/showcase/</link>
+      <link>https://rombix92.github.io/blog_tutorial/showcase/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/showcase/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/showcase/</guid>
       <description>TAT by OVH Tshark.dev by Ross Jacobs inteliver by Amir Lavasani </description>
     </item>
     
     <item>
       <title>Site param</title>
-      <link>https://rombix92.github.io/blog/shortcodes/siteparam/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/siteparam/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/siteparam/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/siteparam/</guid>
       <description>siteparam shortcode is used to help you print values of site params.
 For instance, in this current site, the editURL variable is used in config.toml
 [params] editURL = &amp;#34;https://github.com/matcornic/hugo-theme-learn/edit/master/exampleSite/content/&amp;#34; Use the siteparam shortcode to display its value.
@@ -209,10 +209,10 @@ editURL Value : https://github.com/matcornic/hugo-theme-learn/edit/master/exampl
     
     <item>
       <title>Tabbed views</title>
-      <link>https://rombix92.github.io/blog/shortcodes/tabs/</link>
+      <link>https://rombix92.github.io/blog_tutorial/shortcodes/tabs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://rombix92.github.io/blog/shortcodes/tabs/</guid>
+      <guid>https://rombix92.github.io/blog_tutorial/shortcodes/tabs/</guid>
       <description>Choose which content to see across the page. Very handy for providing code snippets for multiple languages or providing configuration in different formats.
 Code example {{&amp;lt; tabs &amp;gt;}} {{% tab name=&amp;quot;python&amp;quot; %}} ```python print(&amp;quot;Hello World!&amp;quot;) ``` {{% /tab %}} {{% tab name=&amp;quot;R&amp;quot; %}} ```R &amp;gt; print(&amp;quot;Hello World!&amp;quot;) ``` {{% /tab %}} {{% tab name=&amp;quot;Bash&amp;quot; %}} ```Bash echo &amp;quot;Hello World!&amp;quot; ``` {{% /tab %}} {{&amp;lt; /tabs &amp;gt;}}  Renders as:
 python R Bash  print(&amp;#34;Hello World!</description>
