@@ -5,27 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="Hugo 0.91.0" />
     <meta name="description" content="Documentation for Hugo Learn Theme">
-<meta name="author" content="Mathieu Cornic">
+<meta name="author" content="Lukasz Rabalski">
 
     <link rel="icon" href="/blog/images/favicon.png" type="image/png">
 
     <title>Pages organization :: Documentation for Hugo Learn Theme</title>
 
     
-    <link href="/blog/css/nucleus.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/fontawesome-all.min.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/hybrid.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/featherlight.min.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/perfect-scrollbar.min.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/auto-complete.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/atom-one-dark-reasonable.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/theme.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/tabs.css?1640636269" rel="stylesheet">
-    <link href="/blog/css/hugo-theme.css?1640636269" rel="stylesheet">
+    <link href="/blog/css/nucleus.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/fontawesome-all.min.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/hybrid.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/featherlight.min.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/perfect-scrollbar.min.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/auto-complete.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/atom-one-dark-reasonable.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/theme.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/tabs.css?1640649673" rel="stylesheet">
+    <link href="/blog/css/hugo-theme.css?1640649673" rel="stylesheet">
     
     
 
-    <script src="/blog/js/jquery-3.3.1.min.js?1640636269"></script>
+    <script src="/blog/js/jquery-3.3.1.min.js?1640649673"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -42,7 +42,46 @@
 
   <div id="header-wrapper">
     <div id="header">
-      <!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><style>img{display: block; margin-left: auto; margin-right: auto;}</style></head><body><img src="data:image/png;base64,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" alt="logo.png" style="max-width:100%;"></body></html>
+      <a id="logo" href='/'>
+
+<svg id="grav-logo" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	width="100%" height="100%"  viewBox="0 0 285.1 69.9" xml:space="preserve">
+<g>
+	<path d="M35,0c9.6,0,17.9,3.4,24.7,10.3c6.8,6.8,10.3,15,10.3,24.7c0,9.7-3.4,17.9-10.3,24.7c-6.8,6.8-15,10.3-24.7,10.3
+		c-9.7,0-17.9-3.4-24.7-10.3C3.4,52.8,0,44.6,0,34.9c0-9.6,3.4-17.9,10.3-24.7C17.1,3.4,25.3,0,35,0z M22.3,63.7
+		c0.3-7.4,0.3-14.7,0-22.1c-2.1-0.4-4-0.4-5.9,0c-0.2,0.8-0.2,2.5-0.1,4.9c0.1,2.3,0,3.9-0.3,4.8c-1.7-0.6-2.7-2.1-3.1-4.6
+		c-0.1-0.7-0.1-3.3-0.1-8c0-14.5-0.1-23-0.3-25.6c-3.6,4.1-5.6,7-5.9,8.5v10.9c0,4.5,0.1,8.1,0.2,10.9c0,0.4,0,1.3-0.1,2.8
+		c-0.1,1.2,0,2.1,0.1,2.6c0.1,0.6,1.1,2.1,2.8,4.7C13.2,58.7,17.5,62.2,22.3,63.7z M44.6,65.4c0.3-5,0.2-12.9-0.1-23.6
+		c-2.1-0.3-4.1-0.3-5.9,0c-0.2,2-0.2,5.1-0.1,9.5c0.1,4.3,0,7.5-0.1,9.5c-2.9,0.4-5,0.3-6.2-0.1c-0.2-5.6-0.2-15.2-0.1-28.7
+		c0.1-12.4,0-21.8-0.3-28.3c-2.4,0.1-4.3,0.6-5.7,1.3c-0.1,7.7-0.2,17.7-0.1,30.1c0,16.5,0,26.6,0,30.3c2.3,1.1,5.4,1.7,9.4,1.7
+		C38.9,66.9,42.1,66.4,44.6,65.4z M48.1,64.1c9.7-4.6,15.7-12,18-22.2c-1.8-0.2-3.8-0.3-6.1-0.3c-1.6,3.9-2.6,6.3-3.2,7.2
+		c-1.1,1.7-2,2.5-2.7,2.5C54,46,54,39.1,54,30.5c0-11.5,0-18.4,0-20.9c-1.4-1.4-3.3-2.5-5.7-3.4C48.1,6.3,48,6.4,48,6.7
+		c0,3.5,0,13.1,0,28.8C47.9,47.2,48,56.8,48.1,64.1z"/>
+</g>
+<g>
+	<path d="M116.6,51.3h-29c-0.5,0-0.9-0.1-1.3-0.2c-0.4-0.2-0.7-0.4-1-0.7c-0.3-0.3-0.5-0.6-0.7-1c-0.2-0.4-0.2-0.8-0.2-1.3V16.3h6.3
+		V45h25.8V51.3z"/>
+	<path d="M154.8,51.3h-22.9c-0.9,0-1.8-0.2-2.9-0.5c-1-0.3-2-0.8-2.9-1.5c-0.9-0.7-1.6-1.6-2.2-2.8c-0.6-1.1-0.9-2.5-0.9-4.2V19.5
+		c0-0.4,0.1-0.9,0.2-1.2c0.2-0.4,0.4-0.7,0.7-1c0.3-0.3,0.6-0.5,1-0.7c0.4-0.2,0.8-0.2,1.3-0.2h28.6v6.3h-25.4v19.8
+		c0,0.8,0.2,1.5,0.7,1.9s1.1,0.7,1.9,0.7h22.9V51.3z M151.9,37h-20v-6.4h20V37z"/>
+	<path d="M197.3,51.3H191v-8.6h-22.3v8.6h-6.3V33.8c0-2.6,0.4-4.9,1.3-7.1s2.1-4,3.7-5.5c1.6-1.5,3.4-2.8,5.5-3.6
+		c2.1-0.9,4.5-1.3,7-1.3h14.3c0.4,0,0.9,0.1,1.2,0.2c0.4,0.2,0.7,0.4,1,0.7s0.5,0.6,0.7,1c0.2,0.4,0.2,0.8,0.2,1.2V51.3z
+		 M168.7,36.4H191V22.6h-11.2c-0.2,0-0.6,0-1.2,0.1c-0.6,0.1-1.4,0.2-2.2,0.4c-0.8,0.2-1.7,0.6-2.6,1c-0.9,0.5-1.8,1.1-2.5,2
+		c-0.8,0.8-1.4,1.9-1.9,3.1c-0.5,1.2-0.7,2.8-0.7,4.5V36.4z"/>
+	<path d="M241.7,28.1c0,1.4-0.2,2.7-0.5,3.9c-0.4,1.1-0.8,2.1-1.5,3c-0.6,0.9-1.3,1.6-2.1,2.2c-0.8,0.6-1.6,1.1-2.5,1.5
+		c-0.9,0.4-1.8,0.7-2.6,0.9c-0.9,0.2-1.7,0.3-2.5,0.3l13.3,11.5h-9.8l-13.2-11.5h-4.6v-6.3H230c0.8-0.1,1.5-0.2,2.2-0.5
+		c0.7-0.3,1.2-0.6,1.7-1.1c0.5-0.5,0.9-1,1.1-1.6c0.3-0.6,0.4-1.4,0.4-2.2v-4c0-0.4,0-0.6-0.1-0.8c-0.1-0.2-0.2-0.3-0.3-0.4
+		c-0.1-0.1-0.3-0.1-0.4-0.2c-0.2,0-0.3,0-0.4,0h-20.9v28.7h-6.3V19.5c0-0.4,0.1-0.9,0.2-1.2c0.2-0.4,0.4-0.7,0.7-1
+		c0.3-0.3,0.6-0.5,1-0.7c0.4-0.2,0.8-0.2,1.3-0.2H234c1.4,0,2.6,0.3,3.6,0.8s1.8,1.2,2.4,1.9c0.6,0.8,1,1.6,1.3,2.5
+		c0.3,0.9,0.4,1.7,0.4,2.5V28.1z"/>
+	<path d="M285.1,48.6c0,0.5-0.1,0.9-0.3,1.3c-0.2,0.4-0.4,0.7-0.7,1c-0.3,0.3-0.6,0.5-1,0.7c-0.4,0.2-0.8,0.2-1.2,0.2
+		c-0.4,0-0.8-0.1-1.2-0.2c-0.4-0.1-0.8-0.4-1.1-0.7l-23.2-24.2v24.7h-6.3V19c0-0.7,0.2-1.2,0.5-1.8c0.4-0.5,0.8-0.9,1.4-1.2
+		c0.6-0.2,1.2-0.3,1.9-0.2s1.2,0.4,1.6,0.9l23.2,24.2V16.3h6.3V48.6z"/>
+</g>
+</svg>
+
+</a>
+
     </div>
     
         <div class="searchbox">
@@ -51,14 +90,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/blog/js/lunr.min.js?1640636269"></script>
-<script type="text/javascript" src="/blog/js/auto-complete.js?1640636269"></script>
+<script type="text/javascript" src="/blog/js/lunr.min.js?1640649673"></script>
+<script type="text/javascript" src="/blog/js/auto-complete.js?1640649673"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/rombix92.github.io\/blog\/";
     
 </script>
-<script type="text/javascript" src="/blog/js/search.js?1640636269"></script>
+<script type="text/javascript" src="/blog/js/search.js?1640649673"></script>
 
     
   </div>
@@ -499,51 +538,9 @@
  
   
     
-      <li data-nav-id="/blog/shortcodes/attachments.fr/" title="Attachments (Pièces jointes)" class="dd-item ">
-        <a href="/blog/shortcodes/attachments.fr/">
-        Attachments (Pièces jointes)
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
       <li data-nav-id="/blog/shortcodes/button/" title="Button" class="dd-item ">
         <a href="/blog/shortcodes/button/">
         Button
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/blog/shortcodes/button.fr/" title="Button (Bouton)" class="dd-item ">
-        <a href="/blog/shortcodes/button.fr/">
-        Button (Bouton)
         <i class="fas fa-check read-icon"></i>
         </a>
     </li>
@@ -822,27 +819,6 @@
 
             
           
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/blog/shortcodes/children/children-2/test3.fr/" title="page test 3" class="dd-item ">
-        <a href="/blog/shortcodes/children/children-2/test3.fr/">
-        page test 3
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
         
         </ul>
       
@@ -904,27 +880,6 @@
 
             
           
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/blog/shortcodes/children/test.fr/" title="page test" class="dd-item ">
-        <a href="/blog/shortcodes/children/test.fr/">
-        page test
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
         
         </ul>
       
@@ -945,27 +900,6 @@
     
       <li data-nav-id="/blog/shortcodes/expand/" title="Expand" class="dd-item ">
         <a href="/blog/shortcodes/expand/">
-        Expand
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/blog/shortcodes/expand.fr/" title="Expand" class="dd-item ">
-        <a href="/blog/shortcodes/expand.fr/">
         Expand
         <i class="fas fa-check read-icon"></i>
         </a>
@@ -1006,27 +940,6 @@
  
   
     
-      <li data-nav-id="/blog/shortcodes/mermaid.fr/" title="Mermaid" class="dd-item ">
-        <a href="/blog/shortcodes/mermaid.fr/">
-        Mermaid
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
       <li data-nav-id="/blog/shortcodes/notice/" title="Notice" class="dd-item ">
         <a href="/blog/shortcodes/notice/">
         Notice
@@ -1048,50 +961,8 @@
  
   
     
-      <li data-nav-id="/blog/shortcodes/notice.fr/" title="Notice" class="dd-item ">
-        <a href="/blog/shortcodes/notice.fr/">
-        Notice
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
       <li data-nav-id="/blog/shortcodes/siteparam/" title="Site param" class="dd-item ">
         <a href="/blog/shortcodes/siteparam/">
-        Site param
-        <i class="fas fa-check read-icon"></i>
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/blog/shortcodes/siteparam.fr/" title="Site param" class="dd-item ">
-        <a href="/blog/shortcodes/siteparam.fr/">
         Site param
         <i class="fas fa-check read-icon"></i>
         </a>
@@ -1203,6 +1074,10 @@
           
               <li>
                   <a class="padding" href="https://rombix92.github.io/blog/showcase"><i class='fas fa-fw fa-camera'></i> Showcases</a>
+              </li>
+          
+              <li>
+                  <a class="padding" href="https://gohugo.io/"><i class='fas fa-fw fa-bookmark'></i> Hugo Documentation</a>
               </li>
           
               <li>
@@ -1781,38 +1656,6 @@ We&rsquo;ve added the <code>menuTitle</code> parameter for that purpose:</p>
 
                     
                     
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
                         
                     
                     
@@ -1935,22 +1778,6 @@ We&rsquo;ve added the <code>menuTitle</code> parameter for that purpose:</p>
             
         
                     
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
             
         
                     
@@ -1990,86 +1817,6 @@ We&rsquo;ve added the <code>menuTitle</code> parameter for that purpose:</p>
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
             
         
@@ -2211,16 +1958,16 @@ We&rsquo;ve added the <code>menuTitle</code> parameter for that purpose:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/blog/js/clipboard.min.js?1640636269"></script>
-    <script src="/blog/js/perfect-scrollbar.min.js?1640636269"></script>
-    <script src="/blog/js/perfect-scrollbar.jquery.min.js?1640636269"></script>
-    <script src="/blog/js/jquery.sticky.js?1640636269"></script>
-    <script src="/blog/js/featherlight.min.js?1640636269"></script>
-    <script src="/blog/js/highlight.pack.js?1640636269"></script>
+    <script src="/blog/js/clipboard.min.js?1640649673"></script>
+    <script src="/blog/js/perfect-scrollbar.min.js?1640649673"></script>
+    <script src="/blog/js/perfect-scrollbar.jquery.min.js?1640649673"></script>
+    <script src="/blog/js/jquery.sticky.js?1640649673"></script>
+    <script src="/blog/js/featherlight.min.js?1640649673"></script>
+    <script src="/blog/js/highlight.pack.js?1640649673"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/blog/js/modernizr.custom-3.6.0.js?1640636269"></script>
-    <script src="/blog/js/learn.js?1640636269"></script>
-    <script src="/blog/js/hugo-learn.js?1640636269"></script>
+    <script src="/blog/js/modernizr.custom-3.6.0.js?1640649673"></script>
+    <script src="/blog/js/learn.js?1640649673"></script>
+    <script src="/blog/js/hugo-learn.js?1640649673"></script>
     
         
             <script src="https://unpkg.com/mermaid@8.8.0/dist/mermaid.min.js"></script>

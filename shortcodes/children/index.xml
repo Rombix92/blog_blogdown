@@ -15,14 +15,5 @@
       <description>This is a test demo child page</description>
     </item>
     
-    <item>
-      <title>page test</title>
-      <link>https://rombix92.github.io/blog/shortcodes/children/test.fr/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://rombix92.github.io/blog/shortcodes/children/test.fr/</guid>
-      <description>Ceci est une page de demo</description>
-    </item>
-    
   </channel>
 </rss>
