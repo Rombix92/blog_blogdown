@@ -1,7 +1,7 @@
 ---
 title: Grow of Metropolis
 description: Algorith showing which cities will be absorbed by which metropolis based on Metropolis power and distance to cities.
-date: 2020-12-01T21:13:14-05:00
+date: 2022-12-01T21:13:14-05:00
 categories: ["R"]
 tags: ["python", "geocoding", "assesment center"]
 weight: 6
@@ -262,13 +262,13 @@ df.groupby('feature code').apply(lambda x: x.sample(1)).reset_index(drop=True)
 ```
 
 ```
-##    geonameid       name  asciiname  ...  dem       timezone  modification date
-## 0    3087782  Przystajń  Przystajn  ...  255  Europe/Warsaw         2010-09-06
-## 1    3094802     Kraków     Krakow  ...  219  Europe/Warsaw         2020-09-18
-## 2    3087630    Pyrzyce    Pyrzyce  ...   39  Europe/Warsaw         2019-09-05
-## 3     759482    Sępopol    Sepopol  ...   32  Europe/Warsaw         2019-09-05
-## 4     756135     Warsaw     Warsaw  ...  113  Europe/Warsaw         2019-11-04
-## 5     766060       Łoje       Loje  ...  111  Europe/Warsaw         2014-10-02
+##    geonameid           name  ...       timezone modification date
+## 0    3088268  Poręba Wielka  ...  Europe/Warsaw        2010-10-23
+## 1     763166        Olsztyn  ...  Europe/Warsaw        2019-09-05
+## 2     775086        Brzozów  ...  Europe/Warsaw        2012-10-01
+## 3    3099230        Gliwice  ...  Europe/Warsaw        2020-09-18
+## 4     756135         Warsaw  ...  Europe/Warsaw        2019-11-04
+## 5     766060           Łoje  ...  Europe/Warsaw        2014-10-02
 ## 
 ## [6 rows x 19 columns]
 ```

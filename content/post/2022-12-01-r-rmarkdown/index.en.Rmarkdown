@@ -1,7 +1,7 @@
 ---
 title: Grow of Metropolis
 description: Algorith showing which cities will be absorbed by which metropolis based on Metropolis power and distance to cities.
-date: 2020-12-01T21:13:14-05:00
+date: 2022-12-01T21:13:14-05:00
 categories: ["R"]
 tags: ["python", "geocoding", "assesment center"]
 weight: 6
