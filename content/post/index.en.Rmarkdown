@@ -1,0 +1,209 @@
+---
+title: Grow of Metropolis
+description: Algorith showing which cities will be absorbed by which metropolis based on Metropolis power and distance to cities.
+date: 2020-12-01T21:13:14-05:00
+categories: ["R"]
+tags: ["python", "geocoding", "assesment center"]
+weight: 6
+---
+
+
+```{r}
+Sys.setenv(RETICULATE_PYTHON = "/Users/lrabalski1/miniforge3/envs/everyday_use/bin/python")
+reticulate::py_config()
+```
+
+```{python}
+import pandas as pd
+import numpy as np
+#!pip install mpu --user
+import mpu
+import geopy.distance
+```
+
+```{python}
+def radius(population):
+    METRO_CITY_POPULATION_CONSTANT = -1/1443000
+    MIN_METRO_CITY_RADIUS = 10
+    MAX_METRO_CITY_RADIUS = 100 - MIN_METRO_CITY_RADIUS
+    return MIN_METRO_CITY_RADIUS + MAX_METRO_CITY_RADIUS * (1 - np.exp(METRO_CITY_POPULATION_CONSTANT *  population))
+
+def _calcualate_metrocity_impact(max_radius, distance_to_metro_city):
+    METRO_CITY_POWER_CONSTANT = -1.4
+    impact = np.exp(METRO_CITY_POWER_CONSTANT  * distance_to_metro_city / max_radius)
+    return impact
+```
+```{python}
+#https://towardsdatascience.com/heres-how-to-calculate-distance-between-2-geolocations-in-python-93ecab5bbba4
+#funkcja do liczenia odleglosci miedzy dwiema wspołrzednymi
+def haversine_distance_code(lat1, lon1, lat2, lon2):
+    r = 6371
+    phi1 = np.radians(lat1)
+    phi2 = np.radians(lat2)
+    delta_phi = np.radians(lat2 - lat1)
+    delta_lambda = np.radians(lon2 - lon1)
+    a = np.sin(delta_phi / 2)**2 + np.cos(phi1) * np.cos(phi2) *   np.sin(delta_lambda / 2)**2
+    res = r * (2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a)))
+    return np.round(res, 2)
+```
+```{python}
+df= pd.read_csv('/Users/lrabalski1/Desktop/prv/x_predict/PL/PL copy.csv', sep="\t", 
+                names=['geonameid','name','asciiname','alternatenames','latitude','longitude','feature class','feature code','country code','cc2','admin1 code','admin2 code','admin3 code','admin4 code','population','elevation','dem','timezone','modification date',])
+df
+```
+### z readme wynika:
+feature classes:
+A: country, state, region,...
+H: stream, lake, ...
+L: parks,area, ...
+P: city, village,...
+R: road, railroad 
+S: spot, building, farm
+T: mountain,hill,rock,... 
+U: undersea
+V: forest,heath,...
+### interesuje nas P oraz byc może A
+
+```{python}
+import requests
+
+url = 'http://www.geonames.org/export/codes.html'
+html = requests.get(url).content
+df_list = pd.read_html(html)
+df_legend = df_list[-1]
+df_legend = df_legend.rename(columns={df_legend.columns[0]: 'feature code',
+                                     df_legend.columns[1]: 'short  descr',
+                                     df_legend.columns[2]: 'long descr'})
+df_legend = pd.merge(df[['feature code','feature class']].drop_duplicates(),df_legend, on='feature code')
+df_legend
+```
+```{python}
+df = df[df['feature class'].isin(['P','A'])]
+df_check = pd.merge(df,df_legend, on=['feature code','feature class'])
+
+#sorujac po najwiekszych obiektach widac ze mamy doczynienia z miastami
+df_check[df_check['feature class']=='P'].sort_values('population', ascending=False)
+
+
+#nazwy jednostek administracyjnych ktore znajduja sie w zbiorze obiektow P
+df_check[df_check['feature class']=='A'].sort_values('population', ascending=False).head(50)
+
+#z tej tabeli wynika, ze PPLX to sekcje zaludnionych miejsc, sa to ulice, dzielnice, wiec wykluczam, sa czescia miast
+df_check[['feature class','feature code', 'short  descr']].drop_duplicates()
+
+#finalnie musze skupic sie na na obu klasach, jednoczesnie usuwajac duplikaty
+df = df[(df['feature class'].isin(['P'])) & 
+        (df.population != 0) & 
+        ~(df['feature code'].isin(['PPLX']))].drop_duplicates('name')
+
+df.groupby('feature code').apply(lambda x: x.sample(1)).reset_index(drop=True)
+
+df.index.name = 'city_id'
+df.reset_index(inplace=True)
+```
+```{python}
+df.groupby(['feature class','feature code']).agg({'population': ['mean', 'min', 'max']})
+```
+
+## Metropolie w Polsce (wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
+Warszawa,
+Katowice,
+Kraków,
+Łódź,
+Trójmiasto,
+Poznań,
+Wrocław,
+Bydgoszcz,
+Szczecin,
+Lublin.
+
+```{python}
+df_metropolie = df[df.name.isin(
+    ['Warsaw','Katowice','Kraków','Łódź',
+     'Gdańsk','Gdynia',#'Trójmiasto',
+     'Poznań','Wrocław','Bydgoszcz','Szczecin','Lublin'])][
+    ['city_id','name','population','latitude','longitude']]
+df_metropolie['iteration']=0
+#df_metropolie['radius'] = radius(df_metropolie['population'])
+df_metropolie=df_metropolie.add_suffix('_metro')
+df_metropolie
+```
+#algorytm przypisywania metropolii
+## Instrukcja
+0. stworze id kolumne z indeksem
+1. zlacze tabele z metropoliami i wszystkimi miastami im do tej pory przypisanymi, wylicze zagregowana ludnosc oraz  promien metropoli
+2. croos joinuje do kazdego miasta bez przypisanej metropolii tabele z metropolia 
+2. wylicze odleglosc miejscowosci od metropoli i pozbede sie tych wierszy ktore sa poza promieniem
+3. dla pozostalych miejscowosci wylicze moc metropolii
+4. zrobie slice max  groupujac po id miejscowosci pozostawiajc metropolie wchlaniajaca - tak powstanie tabela incrementalna do ktorej potem bede rbindowal nastepne tego typu tabele
+5. w obu tabelach powstanie tabele z indeksem mowiacy o n-iteracji z jakiej pochodzi przypisanie miejscowosci do metropolii oraz stan populacji
+
+6. wszystko zamkne w lupie while ktory bedzie wykonywany tak dlugo jak zostanie odnotowany przyrost w tabeli incrementalnej
+
+```{python}
+df_cities = df[['city_id','name','population','latitude','longitude']]
+df_cities = df_cities.loc[~df_cities.city_id.isin(df_metropolie.city_id_metro)]
+df_cities
+```
+## wlasciwy algorytm
+```{python}
+df_miasta_w_puli =df_cities
+column_names = ['city_id','name','population'] +df_metropolie.columns.values.tolist()
+df_miasta_wchloniete=pd.DataFrame(columns=column_names)
+start = True
+iteration =0
+
+
+# start funkcji
+while start == True:
+    df_metropolie_powiekszone=df_metropolie.append(df_miasta_wchloniete, ignore_index=True)
+    df_metropolie_powiekszone.population = df_metropolie_powiekszone.population.combine_first(df_metropolie_powiekszone.population_metro)
+    
+    df_metropolie_powiekszone_popul = df_metropolie_powiekszone.groupby(
+        ['city_id_metro','name_metro','population_metro','latitude_metro','longitude_metro',]).agg(
+        {'population':['sum']}).reset_index()
+    df_metropolie_powiekszone_popul.columns = df_metropolie_powiekszone_popul.columns.droplevel(1)
+    df_metropolie_powiekszone_popul['radius'] = radius(df_metropolie_powiekszone_popul['population'])
+    df_miasta_w_puli['key'] = 1
+    df_metropolie_powiekszone_popul['key'] = 1
+    df_x = pd.merge(df_miasta_w_puli, df_metropolie_powiekszone_popul, on='key', suffixes=('','_y')).drop("key", 1)
+    #calculating distance between two coordinates 
+    #https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+    distances_km = []
+    for row in df_x.itertuples():
+        distances_km.append(
+            haversine_distance_code( row.latitude, row.longitude ,row.latitude_metro, row.longitude_metro)
+        )
+    df_x['distance_km'] = distances_km
+    df_x = df_x[df_x.radius >= df_x.distance_km]
+    df_x['impact'] = _calcualate_metrocity_impact(df_x.radius,df_x.distance_km)
+    #stwierdzam do ktorej finalnie metropoli miejscowosci zostaje zaliczon
+    idx = df_x.groupby(['name','population'])['impact'].transform(max) == df_x['impact']
+    df_x = df_x[idx]
+    iteration+= 1
+    df_x['iteration_metro']=iteration
+    pre_rows_num=df_miasta_wchloniete.shape[0]
+    df_miasta_wchloniete=df_miasta_wchloniete.append(
+        df_x[column_names], ignore_index=True)
+    #pozbywam sie miast juz wchlonietych
+    indx = df_miasta_w_puli.city_id.isin(df_miasta_wchloniete.city_id)
+    df_miasta_w_puli = df_miasta_w_puli[~indx]
+    if pre_rows_num == df_miasta_wchloniete.shape[0]:
+        start = False
+
+df_metropolie_powiekszone_popul = df_metropolie_powiekszone.groupby(
+    ['city_id_metro','name_metro','population_metro','latitude_metro','longitude_metro',]).agg(
+    {'population':['sum']}).reset_index()
+df_metropolie_powiekszone_popul.columns = df_metropolie_powiekszone_popul.columns.droplevel(1)
+df_metropolie_powiekszone_popul['radius'] = radius(df_metropolie_powiekszone_popul['population'])
+
+
+```
+
+```{python}
+#finalne populacje metropoli
+df_metropolie_powiekszone_popul
+
+#przypisanie miast do metropoli wraz numerem iteracji
+df_miasta_wchloniete
+```
