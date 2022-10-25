@@ -6,6 +6,9 @@ date: '2022-10-25'
 ---
 
 
+[<img src="https://simpleicons.org/icons/github.svg" style="max-width:15%;min-width:40px;float:right;" alt="Github repo" />](https://github.com/yihui/hugo-xmin)
+
+
 ```{r}
 Sys.setenv(RETICULATE_PYTHON = "/Users/lrabalski1/miniforge3/envs/everyday_use/bin/python")
 reticulate::py_config()

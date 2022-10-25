@@ -1,11 +1,13 @@
 ---
 title: Grow of Metropolis
-description: Algorith showing which cities will be absorbed by which metropolis based on Metropolis power and distance to cities.
 categories: ["R"]
 tags: ["python", "geocoding", "assesment center"]
 date: '2022-10-25'
-slug: hi-hugo
 ---
+
+
+[<img src="https://simpleicons.org/icons/github.svg" style="max-width:15%;min-width:40px;float:right;" alt="Github repo" />](https://github.com/yihui/hugo-xmin)
+
 
 
 
@@ -263,10 +265,10 @@ df.groupby('feature code').apply(lambda x: x.sample(1)).reset_index(drop=True)
 
 ```
 ##    geonameid                 name  ...       timezone modification date
-## 0    3099391                Gidle  ...  Europe/Warsaw        2010-09-06
+## 0     764846              Mielnik  ...  Europe/Warsaw        2010-09-05
 ## 1    3098722  Gorzów Wielkopolski  ...  Europe/Warsaw        2020-06-11
-## 2    3087307               Rawicz  ...  Europe/Warsaw        2019-09-05
-## 3    3101680             Chodzież  ...  Europe/Warsaw        2019-09-05
+## 2    3083988       Świętochłowice  ...  Europe/Warsaw        2010-10-17
+## 3     762851      Ostrów Lubelski  ...  Europe/Warsaw        2010-10-16
 ## 4     756135               Warsaw  ...  Europe/Warsaw        2019-11-04
 ## 5     766060                 Łoje  ...  Europe/Warsaw        2014-10-02
 ## 
