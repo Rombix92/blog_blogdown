@@ -53,7 +53,7 @@ df= pd.read_csv('/Users/lrabalski1/Desktop/prv/x_predict/PL/PL copy.csv', sep="\
                 names=['geonameid','name','asciiname','alternatenames','latitude','longitude','feature class','feature code','country code','cc2','admin1 code','admin2 code','admin3 code','admin4 code','population','elevation','dem','timezone','modification date',])
 df
 ```
-# z readme wynika:
+## z readme wynika:
 feature classes:
 A: country, state, region,...
 H: stream, lake, ...
@@ -108,7 +108,7 @@ df.reset_index(inplace=True)
 df.groupby(['feature class','feature code']).agg({'population': ['mean', 'min', 'max']})
 ```
 
-# Metropolie w Polsce 
+## Metropolie w Polsce 
 (wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
 Warszawa,
 Katowice,
@@ -127,13 +127,14 @@ df_metropolie = df[df.name.isin(
      'Gdańsk','Gdynia',#'Trójmiasto',
      'Poznań','Wrocław','Bydgoszcz','Szczecin','Lublin'])][
     ['city_id','name','population','latitude','longitude']]
-df_metropolie['iteration']=0
+df_metropolie['iteration']=0 
 #df_metropolie['radius'] = radius(df_metropolie['population'])
 df_metropolie=df_metropolie.add_suffix('_metro')
 df_metropolie
 ```
-#algorytm przypisywania metropolii
-## Instrukcja
+## algorytm przypisywania metropolii
+
+### Instrukcja
 0. stworze id kolumne z indeksem
 1. zlacze tabele z metropoliami i wszystkimi miastami im do tej pory przypisanymi, wylicze zagregowana ludnosc oraz  promien metropoli
 2. croos joinuje do kazdego miasta bez przypisanej metropolii tabele z metropolia 
@@ -149,7 +150,7 @@ df_cities = df[['city_id','name','population','latitude','longitude']]
 df_cities = df_cities.loc[~df_cities.city_id.isin(df_metropolie.city_id_metro)]
 df_cities
 ```
-## wlasciwy algorytm
+### wlasciwy algorytm
 ```{python}
 df_miasta_w_puli =df_cities
 column_names = ['city_id','name','population'] +df_metropolie.columns.values.tolist()

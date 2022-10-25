@@ -86,7 +86,7 @@ df
 ## 
 ## [57948 rows x 19 columns]
 ```
-# z readme wynika:
+## z readme wynika:
 feature classes:
 A: country, state, region,...
 H: stream, lake, ...
@@ -97,6 +97,7 @@ S: spot, building, farm
 T: mountain,hill,rock,... 
 U: undersea
 V: forest,heath,...
+
 ## interesuje nas P oraz byc może A
 
 
@@ -264,13 +265,13 @@ df.groupby('feature code').apply(lambda x: x.sample(1)).reset_index(drop=True)
 ```
 
 ```
-##    geonameid       name  asciiname  ...  dem       timezone  modification date
-## 0    3101453     Chyżne     Chyzne  ...  651  Europe/Warsaw         2010-10-30
-## 1    3102014  Bydgoszcz  Bydgoszcz  ...   37  Europe/Warsaw         2019-09-05
-## 2     765927   Lubartów   Lubartow  ...  159  Europe/Warsaw         2013-10-31
-## 3     759814   Rytwiany   Rytwiany  ...  180  Europe/Warsaw         2010-09-30
-## 4     756135     Warsaw     Warsaw  ...  113  Europe/Warsaw         2019-11-04
-## 5     766060       Łoje       Loje  ...  111  Europe/Warsaw         2014-10-02
+##    geonameid          name     asciiname  ...  dem       timezone  modification date
+## 0     776251        Bemowo        Bemowo  ...  108  Europe/Warsaw         2018-01-16
+## 1    3081368       Wrocław       Wroclaw  ...  119  Europe/Warsaw         2021-10-06
+## 2     763111       Opoczno       Opoczno  ...  193  Europe/Warsaw         2010-10-01
+## 3    3102513  Brudzeń Duży  Brudzen Duzy  ...   89  Europe/Warsaw         2010-09-18
+## 4     756135        Warsaw        Warsaw  ...  113  Europe/Warsaw         2019-11-04
+## 5     766060          Łoje          Loje  ...  111  Europe/Warsaw         2014-10-02
 ## 
 ## [6 rows x 19 columns]
 ```
@@ -296,7 +297,8 @@ df.groupby(['feature class','feature code']).agg({'population': ['mean', 'min', 
 ##               PPLF          1.750000e+02      175      175
 ```
 
-# Metropolie w Polsce (wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
+## Metropolie w Polsce 
+(wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
 Warszawa,
 Katowice,
 Kraków,
@@ -315,7 +317,7 @@ df_metropolie = df[df.name.isin(
      'Gdańsk','Gdynia',#'Trójmiasto',
      'Poznań','Wrocław','Bydgoszcz','Szczecin','Lublin'])][
     ['city_id','name','population','latitude','longitude']]
-df_metropolie['iteration']=0
+df_metropolie['iteration']=0 
 #df_metropolie['radius'] = radius(df_metropolie['population'])
 df_metropolie=df_metropolie.add_suffix('_metro')
 df_metropolie
@@ -337,8 +339,9 @@ df_metropolie
 ## 
 ## [11 rows x 6 columns]
 ```
-#algorytm przypisywania metropolii
-## Instrukcja
+## algorytm przypisywania metropolii
+
+### Instrukcja
 0. stworze id kolumne z indeksem
 1. zlacze tabele z metropoliami i wszystkimi miastami im do tej pory przypisanymi, wylicze zagregowana ludnosc oraz  promien metropoli
 2. croos joinuje do kazdego miasta bez przypisanej metropolii tabele z metropolia 
@@ -372,7 +375,7 @@ df_cities
 ## 
 ## [3565 rows x 5 columns]
 ```
-## wlasciwy algorytm
+### wlasciwy algorytm
 
 ```python
 df_miasta_w_puli =df_cities
