@@ -3,9 +3,10 @@ title: Grow of Metropolis
 categories: ["R"]
 tags: ["python", "geocoding", "assesment center"]
 date: '2022-10-25'
+toc: true
 ---
-
-
+ 
+ 
 [<img src="https://simpleicons.org/icons/github.svg" style="max-width:15%;min-width:40px;float:right;" alt="Github repo" />](https://github.com/yihui/hugo-xmin)
 
 
@@ -52,7 +53,7 @@ df= pd.read_csv('/Users/lrabalski1/Desktop/prv/x_predict/PL/PL copy.csv', sep="\
                 names=['geonameid','name','asciiname','alternatenames','latitude','longitude','feature class','feature code','country code','cc2','admin1 code','admin2 code','admin3 code','admin4 code','population','elevation','dem','timezone','modification date',])
 df
 ```
-### z readme wynika:
+# z readme wynika:
 feature classes:
 A: country, state, region,...
 H: stream, lake, ...
@@ -63,7 +64,8 @@ S: spot, building, farm
 T: mountain,hill,rock,... 
 U: undersea
 V: forest,heath,...
-### interesuje nas P oraz byc może A
+
+## interesuje nas P oraz byc może A
 
 ```{python}
 import requests
@@ -106,7 +108,8 @@ df.reset_index(inplace=True)
 df.groupby(['feature class','feature code']).agg({'population': ['mean', 'min', 'max']})
 ```
 
-## Metropolie w Polsce (wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
+# Metropolie w Polsce 
+(wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
 Warszawa,
 Katowice,
 Kraków,

@@ -3,11 +3,11 @@ title: Grow of Metropolis
 categories: ["R"]
 tags: ["python", "geocoding", "assesment center"]
 date: '2022-10-25'
+toc: true
 ---
-
-
+ 
+ 
 [<img src="https://simpleicons.org/icons/github.svg" style="max-width:15%;min-width:40px;float:right;" alt="Github repo" />](https://github.com/yihui/hugo-xmin)
-
 
 
 
@@ -86,7 +86,7 @@ df
 ## 
 ## [57948 rows x 19 columns]
 ```
-### z readme wynika:
+# z readme wynika:
 feature classes:
 A: country, state, region,...
 H: stream, lake, ...
@@ -97,7 +97,7 @@ S: spot, building, farm
 T: mountain,hill,rock,... 
 U: undersea
 V: forest,heath,...
-### interesuje nas P oraz byc może A
+## interesuje nas P oraz byc może A
 
 
 ```python
@@ -264,13 +264,13 @@ df.groupby('feature code').apply(lambda x: x.sample(1)).reset_index(drop=True)
 ```
 
 ```
-##    geonameid                 name  ...       timezone modification date
-## 0     764846              Mielnik  ...  Europe/Warsaw        2010-09-05
-## 1    3098722  Gorzów Wielkopolski  ...  Europe/Warsaw        2020-06-11
-## 2    3083988       Świętochłowice  ...  Europe/Warsaw        2010-10-17
-## 3     762851      Ostrów Lubelski  ...  Europe/Warsaw        2010-10-16
-## 4     756135               Warsaw  ...  Europe/Warsaw        2019-11-04
-## 5     766060                 Łoje  ...  Europe/Warsaw        2014-10-02
+##    geonameid       name  asciiname  ...  dem       timezone  modification date
+## 0    3101453     Chyżne     Chyzne  ...  651  Europe/Warsaw         2010-10-30
+## 1    3102014  Bydgoszcz  Bydgoszcz  ...   37  Europe/Warsaw         2019-09-05
+## 2     765927   Lubartów   Lubartow  ...  159  Europe/Warsaw         2013-10-31
+## 3     759814   Rytwiany   Rytwiany  ...  180  Europe/Warsaw         2010-09-30
+## 4     756135     Warsaw     Warsaw  ...  113  Europe/Warsaw         2019-11-04
+## 5     766060       Łoje       Loje  ...  111  Europe/Warsaw         2014-10-02
 ## 
 ## [6 rows x 19 columns]
 ```
@@ -296,7 +296,7 @@ df.groupby(['feature class','feature code']).agg({'population': ['mean', 'min', 
 ##               PPLF          1.750000e+02      175      175
 ```
 
-## Metropolie w Polsce (wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
+# Metropolie w Polsce (wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
 Warszawa,
 Katowice,
 Kraków,

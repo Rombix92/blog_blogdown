@@ -22,6 +22,11 @@ hr {
   color: #ddd;
 }
 
+#TableOfContents, #TOC {
+  border: 2px solid #eee;
+  border-radius: 30px;
+}
+
 /* code */
 pre {
   border: 1px solid #ddd;
