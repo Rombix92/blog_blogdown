@@ -1,27 +1,79 @@
 ---
 title: Grow of Metropolis
-categories: ["R"]
-tags: ["python", "geocoding", "assesment center"]
+categories: ["Python"]
+tags: ["python", "geocoding"]
 date: '2022-10-25'
 toc: true
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
- 
- 
-[<img src="https://simpleicons.org/icons/github.svg" style="max-width:15%;min-width:40px;float:right;" alt="Github repo" />](https://github.com/yihui/hugo-xmin)
 
+## About
 
-```{r}
-Sys.setenv(RETICULATE_PYTHON = "/Users/lrabalski1/miniforge3/envs/everyday_use/bin/python")
-reticulate::py_config()
+Aims:
+
+1.  FIlter out the data localisation where people are supposed to live
+    in (cities; villages etc)
+
+2.  Select cities which are metropolis based on population on external
+    source
+
+3.  Write a script which will ascribe metropolis to a city. Additionally
+    model a process of consecutive cities which would be ascribed to the
+    city bearing in mind that city will grow thanks to this process.
+
+[Data Source](http://www.geonames.org/)
+
+[Documentation](http://www.geonames.org/export/codes.html)
+
+## Preparing environment
+
+Setting default markdown option responsible of code chunk behaviour.
+
+```{r markdown_parameters, include=FALSE}
+#markdown ----
+knitr::opts_chunk$set(#fig.width=12, 
+                      fig.height=4,
+                       out.width = '100%'
+                      ) 
+knitr::opts_chunk$set(include =TRUE, 
+                      warning = FALSE,
+                      message =FALSE,
+                      collapse=TRUE
+)
+options(scipen=999)
 ```
 
-```{python}
+Firstly I choose prefered python environment on which I have installed
+useful libraries.
+
+```{r}
+library(reticulate)
+myenvs=conda_list()
+envname=myenvs$name[3]
+use_condaenv(envname, required = TRUE)
+#reticulate::py_config()
+```
+
+```{python, include=FALSE}
+file_path_name='/Users/lrabalski1/Desktop/prv/data/geonames_org.csv'
+```
+
+```{python, include=FALSE}
 import pandas as pd
 import numpy as np
-#!pip install mpu --user
 import mpu
 import geopy.distance
 ```
+
+Bellow I present two function:
+
+-   radius - function which based on city population is calculating a
+    radius within which city is able to absorb cities from this range
+
+-   \_calcualate_metrocity_impact - calculate impact on metrocity on
+    given city
 
 ```{python}
 def radius(population):
@@ -35,9 +87,12 @@ def _calcualate_metrocity_impact(max_radius, distance_to_metro_city):
     impact = np.exp(METRO_CITY_POWER_CONSTANT  * distance_to_metro_city / max_radius)
     return impact
 ```
+
+Function responsible for calculating distances between 2 points on earth
+surface.
+
 ```{python}
 #https://towardsdatascience.com/heres-how-to-calculate-distance-between-2-geolocations-in-python-93ecab5bbba4
-#funkcja do liczenia odleglosci miedzy dwiema wspołrzednymi
 def haversine_distance_code(lat1, lon1, lat2, lon2):
     r = 6371
     phi1 = np.radians(lat1)
@@ -48,24 +103,36 @@ def haversine_distance_code(lat1, lon1, lat2, lon2):
     res = r * (2 * np.arctan2(np.sqrt(a), np.sqrt(1 - a)))
     return np.round(res, 2)
 ```
+
 ```{python}
-df= pd.read_csv('/Users/lrabalski1/Desktop/prv/x_predict/PL/PL copy.csv', sep="\t", 
+df= pd.read_csv(file_path_name, sep="\t", 
                 names=['geonameid','name','asciiname','alternatenames','latitude','longitude','feature class','feature code','country code','cc2','admin1 code','admin2 code','admin3 code','admin4 code','population','elevation','dem','timezone','modification date',])
-df
+
+
 ```
-## z readme wynika:
-feature classes:
+
+Dataset readme states that column feature classes contains level
+information of:
+
 A: country, state, region,...
+
 H: stream, lake, ...
+
 L: parks,area, ...
+
 P: city, village,...
-R: road, railroad 
+
+R: road, railroad
+
 S: spot, building, farm
-T: mountain,hill,rock,... 
+
+T: mountain,hill,rock,...
+
 U: undersea
+
 V: forest,heath,...
 
-## interesuje nas P oraz byc może A
+We will be interested on object of level P, and maybe A.
 
 ```{python}
 import requests
@@ -80,16 +147,16 @@ df_legend = df_legend.rename(columns={df_legend.columns[0]: 'feature code',
 df_legend = pd.merge(df[['feature code','feature class']].drop_duplicates(),df_legend, on='feature code')
 df_legend
 ```
-```{python}
+
+```{python, results='hide'}
 df = df[df['feature class'].isin(['P','A'])]
 df_check = pd.merge(df,df_legend, on=['feature code','feature class'])
 
-#sorujac po najwiekszych obiektach widac ze mamy doczynienia z miastami
-df_check[df_check['feature class']=='P'].sort_values('population', ascending=False)
+# sorting by the biggest objects I can see that those are cities
+df_check[df_check['feature class']=='P'].sort_values('population', ascending=False).head(5)
 
-
-#nazwy jednostek administracyjnych ktore znajduja sie w zbiorze obiektow P
-df_check[df_check['feature class']=='A'].sort_values('population', ascending=False).head(50)
+# administrative object located in object of level P
+df_check[df_check['feature class']=='A'].sort_values('population', ascending=False).head(5)
 
 #z tej tabeli wynika, ze PPLX to sekcje zaludnionych miejsc, sa to ulice, dzielnice, wiec wykluczam, sa czescia miast
 df_check[['feature class','feature code', 'short  descr']].drop_duplicates()
@@ -99,27 +166,20 @@ df = df[(df['feature class'].isin(['P'])) &
         (df.population != 0) & 
         ~(df['feature code'].isin(['PPLX']))].drop_duplicates('name')
 
-df.groupby('feature code').apply(lambda x: x.sample(1)).reset_index(drop=True)
 
 df.index.name = 'city_id'
 df.reset_index(inplace=True)
 ```
+
 ```{python}
 df.groupby(['feature class','feature code']).agg({'population': ['mean', 'min', 'max']})
 ```
 
-## Metropolie w Polsce 
-(wikipedia: https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
-Warszawa,
-Katowice,
-Kraków,
-Łódź,
-Trójmiasto,
-Poznań,
-Wrocław,
-Bydgoszcz,
-Szczecin,
-Lublin.
+## Metropolis in Poland
+
+[wikipedia](https://pl.wikipedia.org/wiki/Obszar_metropolitalny)
+Warszawa, Katowice, Kraków, Łódź, Trójmiasto, Poznań, Wrocław,
+Bydgoszcz, Szczecin, Lublin.
 
 ```{python}
 df_metropolie = df[df.name.isin(
@@ -132,25 +192,43 @@ df_metropolie['iteration']=0
 df_metropolie=df_metropolie.add_suffix('_metro')
 df_metropolie
 ```
-## algorytm przypisywania metropolii
 
-### Instrukcja
-0. stworze id kolumne z indeksem
-1. zlacze tabele z metropoliami i wszystkimi miastami im do tej pory przypisanymi, wylicze zagregowana ludnosc oraz  promien metropoli
-2. croos joinuje do kazdego miasta bez przypisanej metropolii tabele z metropolia 
-2. wylicze odleglosc miejscowosci od metropoli i pozbede sie tych wierszy ktore sa poza promieniem
-3. dla pozostalych miejscowosci wylicze moc metropolii
-4. zrobie slice max  groupujac po id miejscowosci pozostawiajc metropolie wchlaniajaca - tak powstanie tabela incrementalna do ktorej potem bede rbindowal nastepne tego typu tabele
-5. w obu tabelach powstanie tabele z indeksem mowiacy o n-iteracji z jakiej pochodzi przypisanie miejscowosci do metropolii oraz stan populacji
+## metropolis absorption algorithm
 
-6. wszystko zamkne w lupie while ktory bedzie wykonywany tak dlugo jak zostanie odnotowany przyrost w tabeli incrementalnej
+### Instruction
+
+1.  stworze id kolumne z indeksem
+
+2.  zlacze tabele z metropoliami i wszystkimi miastami im do tej pory
+    przypisanymi, wylicze zagregowana ludnosc oraz promien metropoli
+
+3.  croos joinuje do kazdego miasta bez przypisanej metropolii tabele z
+    metropolia
+
+4.  wylicze odleglosc miejscowosci od metropoli i pozbede sie tych
+    wierszy ktore sa poza promieniem
+
+5.  dla pozostalych miejscowosci wylicze moc metropolii
+
+6.  zrobie slice max groupujac po id miejscowosci pozostawiajc
+    metropolie wchlaniajaca - tak powstanie tabela incrementalna do
+    ktorej potem bede rbindowal nastepne tego typu tabele
+
+7.  w obu tabelach powstanie tabele z indeksem mowiacy o n-iteracji z
+    jakiej pochodzi przypisanie miejscowosci do metropolii oraz stan
+    populacji
+
+8.  wszystko zamkne w lupie while ktory bedzie wykonywany tak dlugo jak
+    zostanie odnotowany przyrost w tabeli incrementalnej
 
 ```{python}
 df_cities = df[['city_id','name','population','latitude','longitude']]
 df_cities = df_cities.loc[~df_cities.city_id.isin(df_metropolie.city_id_metro)]
-df_cities
+df_cities.head(5)
 ```
+
 ### wlasciwy algorytm
+
 ```{python}
 df_miasta_w_puli =df_cities
 column_names = ['city_id','name','population'] +df_metropolie.columns.values.tolist()
@@ -207,8 +285,8 @@ df_metropolie_powiekszone_popul['radius'] = radius(df_metropolie_powiekszone_pop
 
 ```{python}
 #finalne populacje metropoli
-df_metropolie_powiekszone_popul
+df_metropolie_powiekszone_popul.head(5)
 
 #przypisanie miast do metropoli wraz numerem iteracji
-df_miasta_wchloniete
+df_miasta_wchloniete.head(5)
 ```

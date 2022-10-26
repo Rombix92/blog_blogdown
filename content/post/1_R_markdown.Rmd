@@ -1,0 +1,52 @@
+---
+description: Presentation of R Markdown functionality
+title: R_Markdown
+categories: ["Rmarkdown"]
+date: '2022-10-26'
+toc: true
+---
+
+```{r data, , include=FALSE}
+library(tidyverse)
+library(dplyr)
+library(broom)
+library(moderndive)
+library(knitr)
+```
+
+# Markdown
+
+------------------------------------------------------------------------
+
+Tutorial for markdown: <https://bookdown.org/yihui/rmarkdown/>
+
+------------------------------------------------------------------------
+
+*Below some useful examples:*
+
+knitr is what runs each code chunk and knits the document. Knitr will use this option as default for each cchunk in the document when the file is knit. Followiw opts_chunk\$dollar_set() we can add the options that we want to set globally to the parentheses before the echo = TRUE argument
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align='left', echo=TRUE)
+```
+
+-   include - code & results appears in the result
+-   echo - code appear in the knit file
+-   eval - evaluate code in a code chunk
+-   collapse - split code and any text output into multiple blocks or include in a single block in the final report
+-   warning - display warning
+-   message - display message like from loading packages
+-   error - stop kniting file when the error will occure (if false file will knit anyway)
+
+At the begining of the markdown document I can find YAML header.
+
+The YAML header controls the look and feel of your document. At the very least, your R markdown document should contain the following YAML header sandwiched between two sets of `---`:
+
+```{r eval=FALSE}
+    ---
+    title: "Your document title"
+    author: "ES 218"
+    output:
+      html_document: default
+    ---
+```
