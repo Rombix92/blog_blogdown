@@ -14,7 +14,7 @@ toc: TRUE
 
 
 
-## Creating Graph data
+# Creating Graph data
 
 Very simple example below
 
@@ -37,7 +37,7 @@ ratings
 ##       metagraph=[('user', 'movie', '+1'), ('user', 'movie', '-1')])
 ```
 
-### saving graph
+## saving graph
 
 In order to save graph as object, very convenient method is to use
 `pickle.`
@@ -73,7 +73,7 @@ data = scipy.io.loadmat(data_file_path+'ACM.mat')
 
 ```
 
-### compresed sparsed matrix
+## compresed sparsed matrix
 
 Many different ways to store `sparsed matrices` may be find in scipy
 [documentation](https://docs.scipy.org/doc/scipy/reference/sparse.html).
@@ -141,9 +141,9 @@ print(arr_csc.todense())
 ##  [1 2 0]]
 ```
 
-### SP matrix methods
+## SP matrix methods
 
-#### bipartite_from_scipy
+### bipartite_from_scipy
 
 
 ```python
@@ -199,7 +199,7 @@ plot_graph(nxg=pp_g.metagraph(),plot_name='simple_graph')
 
 ![](simple_graph.png)
 
-#### heterograph
+### heterograph
 
 Using ACM dataset
 
@@ -240,7 +240,7 @@ plot_graph(nxg=G.metagraph(),plot_name='more_complicated_graph')
 
 ![](more_complicated_graph.png)
 
-### pandas method 
+## pandas method 
 
 On [github
 repository](https://github.com/yoonjong12/pinsage/blob/main/builder.py)
