@@ -237,9 +237,9 @@ we can find a method allowing for building graphs using pandas
 dataphrame.
 
 ```{python}
-import sys
 import numpy as np
 import pandas as pd
+import sys
 sys.path.insert(1, repo_directory)
 from builder import PandasGraphBuilder
 

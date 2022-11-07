@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rmarkdown on A minimal Hugo website</title>
+    <link>/categories/rmarkdown/</link>
+    <description>Recent content in Rmarkdown on A minimal Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/rmarkdown/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>R_Markdown</title>
+      <link>/post/2022/10/26/r_markdown/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/26/r_markdown/</guid>
+      <description>Markdown  Tutorial for markdown: https://bookdown.org/yihui/rmarkdown/
+ Below some useful examples:
+knitr is what runs each code chunk and knits the document. Knitr will use this option as default for each cchunk in the document when the file is knit. Followiw opts_chunk$dollar_set() we can add the options that we want to set globally to the parentheses before the echo = TRUE argument
+ include - code &amp;amp; results appears in the result echo - code appear in the knit file eval - evaluate code in a code chunk collapse - split code and any text output into multiple blocks or include in a single block in the final report warning - display warning message - display message like from loading packages error - stop kniting file when the error will occure (if false file will knit anyway)  At the begining of the markdown document I can find YAML header.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on A minimal Hugo website</title>
+    <link>/categories/python/</link>
+    <description>Recent content in Python on A minimal Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 25 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Grow of Metropolis</title>
+      <link>/post/2022/10/25/grow-of-metropolis/</link>
+      <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/25/grow-of-metropolis/</guid>
+      <description>About Aims:
+  FIlter out the data localisation where people are supposed to live in (cities; villages etc)
+  Select cities which are metropolis based on population on external source
+  Write a script which will ascribe metropolis to a city. Additionally model a process of consecutive cities which would be ascribed to the city bearing in mind that city will grow thanks to this process.
+  Data Source</description>
+    </item>
+    
+  </channel>
+</rss>

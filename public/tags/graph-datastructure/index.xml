@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>graph datastructure on A minimal Hugo website</title>
+    <link>/tags/graph-datastructure/</link>
+    <description>Recent content in graph datastructure on A minimal Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/graph-datastructure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DGL graph datastructure</title>
+      <link>/post/2022/10/28/dgl-graph-datastructure/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/28/dgl-graph-datastructure/</guid>
+      <description>Creating Graph data Very simple example below
+# Each value of the dictionary is a list of edge tuples. # Nodes are integer IDs starting from zero. Nodes IDs of different types have # separate countings. import torch import dgl ## /Users/lrabalski1/miniforge3/envs/tensorflow_mac/lib/python3.8/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version &amp;gt;=1.16.5 and &amp;lt;1.23.0 is required for this version of SciPy (detected version 1.23.4 ## warnings.warn(f&amp;quot;A NumPy version &amp;gt;={np_minversion} and &amp;lt;{np_maxversion}&amp;quot; ratings = dgl.heterograph( {(&#39;user&#39;, &#39;+1&#39;, &#39;movie&#39;) : [(0, 0), (0, 1), (1, 0)], (&#39;user&#39;, &#39;-1&#39;, &#39;movie&#39;) : [(2, 1)]}) ratings ## Graph(num_nodes={&#39;movie&#39;: 2, &#39;user&#39;: 3}, ## num_edges={(&#39;user&#39;, &#39;+1&#39;, &#39;movie&#39;): 3, (&#39;user&#39;, &#39;-1&#39;, &#39;movie&#39;): 1}, ## metagraph=[(&#39;user&#39;, &#39;movie&#39;, &#39;+1&#39;), (&#39;user&#39;, &#39;movie&#39;, &#39;-1&#39;)])  saving graph In order to save graph as object, very convenient method is to use pickle.</description>
+    </item>
+    
+  </channel>
+</rss>

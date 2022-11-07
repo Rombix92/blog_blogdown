@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics on A minimal Hugo website</title>
+    <link>/tags/statistics/</link>
+    <description>Recent content in Statistics on A minimal Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 26 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/statistics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Statistics</title>
+      <link>/post/2022/10/26/statistics/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/26/statistics/</guid>
+      <description>Logistic Regression Markdown Tutorial
+Matematyczna interpretacja modelu Quiz correct answers: d. Hint: Remember, the coefficient in a logistic regression model is the expected increase in the log odds given a one unit increase in the explanatory variable.
+   Survived Fare Fare_log     0 7.2500 2   1 71.2833 4   1 7.9250 2   1 53.1000 4   0 8.0500 2   0 8.</description>
+    </item>
+    
+  </channel>
+</rss>

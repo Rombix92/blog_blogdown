@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A minimal Hugo website</title>
+    <link>/</link>
+    <description>Recent content on A minimal Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DGL graph datastructure</title>
+      <link>/post/2022/10/28/dgl-graph-datastructure/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/28/dgl-graph-datastructure/</guid>
+      <description>Creating Graph data Very simple example below
+# Each value of the dictionary is a list of edge tuples. # Nodes are integer IDs starting from zero. Nodes IDs of different types have # separate countings. import torch import dgl ## /Users/lrabalski1/miniforge3/envs/tensorflow_mac/lib/python3.8/site-packages/scipy/__init__.py:146: UserWarning: A NumPy version &amp;gt;=1.16.5 and &amp;lt;1.23.0 is required for this version of SciPy (detected version 1.23.4 ## warnings.warn(f&amp;quot;A NumPy version &amp;gt;={np_minversion} and &amp;lt;{np_maxversion}&amp;quot; ratings = dgl.heterograph( {(&#39;user&#39;, &#39;+1&#39;, &#39;movie&#39;) : [(0, 0), (0, 1), (1, 0)], (&#39;user&#39;, &#39;-1&#39;, &#39;movie&#39;) : [(2, 1)]}) ratings ## Graph(num_nodes={&#39;movie&#39;: 2, &#39;user&#39;: 3}, ## num_edges={(&#39;user&#39;, &#39;+1&#39;, &#39;movie&#39;): 3, (&#39;user&#39;, &#39;-1&#39;, &#39;movie&#39;): 1}, ## metagraph=[(&#39;user&#39;, &#39;movie&#39;, &#39;+1&#39;), (&#39;user&#39;, &#39;movie&#39;, &#39;-1&#39;)])  saving graph In order to save graph as object, very convenient method is to use pickle.</description>
+    </item>
+    
+    <item>
+      <title>R_Markdown</title>
+      <link>/post/2022/10/26/r_markdown/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/26/r_markdown/</guid>
+      <description>Markdown  Tutorial for markdown: https://bookdown.org/yihui/rmarkdown/
+ Below some useful examples:
+knitr is what runs each code chunk and knits the document. Knitr will use this option as default for each cchunk in the document when the file is knit. Followiw opts_chunk$dollar_set() we can add the options that we want to set globally to the parentheses before the echo = TRUE argument
+ include - code &amp;amp; results appears in the result echo - code appear in the knit file eval - evaluate code in a code chunk collapse - split code and any text output into multiple blocks or include in a single block in the final report warning - display warning message - display message like from loading packages error - stop kniting file when the error will occure (if false file will knit anyway)  At the begining of the markdown document I can find YAML header.</description>
+    </item>
+    
+    <item>
+      <title>Statistics</title>
+      <link>/post/2022/10/26/statistics/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/26/statistics/</guid>
+      <description>Logistic Regression Markdown Tutorial
+Matematyczna interpretacja modelu Quiz correct answers: d. Hint: Remember, the coefficient in a logistic regression model is the expected increase in the log odds given a one unit increase in the explanatory variable.
+   Survived Fare Fare_log     0 7.2500 2   1 71.2833 4   1 7.9250 2   1 53.1000 4   0 8.0500 2   0 8.</description>
+    </item>
+    
+    <item>
+      <title>Grow of Metropolis</title>
+      <link>/post/2022/10/25/grow-of-metropolis/</link>
+      <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022/10/25/grow-of-metropolis/</guid>
+      <description>About Aims:
+  FIlter out the data localisation where people are supposed to live in (cities; villages etc)
+  Select cities which are metropolis based on population on external source
+  Write a script which will ascribe metropolis to a city. Additionally model a process of consecutive cities which would be ascribed to the city bearing in mind that city will grow thanks to this process.
+  Data Source</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Hi! My name is Łukasz Rąbalski.
+I hope you will find content served here interesting and useful.
+What you may find here:
+  Python / R / SQL algorithm
+  Application showcases of statistical / algorithmical method aimed toward solving real life problems.
+  Explanation of mathematical foundation lying behind above mentioned methods
+  Each article has attached Category and one or more tags which makes it easier to find useful content.</description>
+    </item>
+    
+    <item>
+      <title>Home</title>
+      <link>/home/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/home/</guid>
+      <description>HUGO XMIN Keep it simple, but not simpler XMin is a Hugo theme written by Yihui Xie in about four hours: half an hour was spent on the Hugo templates, and 3.5 hours were spent on styling. The main motivation for writing this theme was to provide a really minimal example to beginners of Hugo templates. This XMin theme contains about 130 lines of code in total, including the code in HTML templates and CSS (also counting empty lines).</description>
+    </item>
+    
+  </channel>
+</rss>

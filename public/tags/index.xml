@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on A minimal Hugo website</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on A minimal Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 28 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>compressed sparsed matrix</title>
+      <link>/tags/compressed-sparsed-matrix/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/compressed-sparsed-matrix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DGL</title>
+      <link>/tags/dgl/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/dgl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graph</title>
+      <link>/tags/graph/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/graph/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graph datastructure</title>
+      <link>/tags/graph-datastructure/</link>
+      <pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/graph-datastructure/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Bayes</title>
+      <link>/tags/bayes/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/bayes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Statistics</title>
+      <link>/tags/statistics/</link>
+      <pubDate>Wed, 26 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/statistics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>geocoding</title>
+      <link>/tags/geocoding/</link>
+      <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/geocoding/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>/tags/python/</link>
+      <pubDate>Tue, 25 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/python/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
