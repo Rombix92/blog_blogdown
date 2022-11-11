@@ -38,6 +38,8 @@ use_condaenv(envname, required = TRUE)
 data_file_path = '/Users/lrabalski1/Desktop/prv/data/'
 ```
 
+## Dealing with missing data in Time Series
+
 ```{r}
 require(zoo)
 require(data.table)
@@ -130,6 +132,10 @@ smoothed = unemp[, HoltWinters(UNRATE, alpha = 0.1, beta = FALSE, gamma = FALSE)
 
 ```
 
+## Smoothing
+
+Smoothing is commonelly used forecasting method. Smoothed time series can be used as zero hypothesis to for testing more sophisticated methods.
+
 ```{python}
 import pandas as pd
 
@@ -138,6 +144,10 @@ unemp.index = unemp.DATE
 
 ## We can use the pandas.DataFrame.ewm() function to calculate the exponentially weighted moving average for a certain number of previous periods.
 ```
+
+### exponentially weightening
+
+Using Pandas.
 
 alpha -  smoothing factor
 
@@ -171,4 +181,15 @@ plt.xlim([datetime.date(2015, 1, 1), datetime.date(2022, 1, 1)])
 plt.legend(loc=2)
 plt.show()
 
+```
+
+### Holt & Holt-Winter method
+
+
+
+In case of forecasting simple exponential weightening  isn't giving good results for data posessing longterm trend.
+For this purpose it is good to apply method aimed for data with trend (Holt) or with trend and seasonality (Holt-Winter)
+
+```{r}
+smoothed = unemp[, HoltWinters(UNRATE, alpha = 0.1, beta = FALSE, gamma = FALSE)]
 ```
