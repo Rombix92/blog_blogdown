@@ -92,7 +92,6 @@ bias.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
 
 ## linear interpolation fullfilling NA with linear interpolation between two data points
 rand.unemp[, impute.li := na.approx(UNRATE, maxgap=Inf)]
-## Error in `[.data.table`(rand.unemp, , `:=`(impute.li, na.approx(UNRATE, : Supplied 897 items to be assigned to 898 items of column 'impute.li'. If you wish to 'recycle' the RHS please use rep() to make this intent clear to readers of your code.
 bias.unemp[, impute.li := na.approx(UNRATE)]
 
 zz <- c(NA, 9, 3, NA, 3, 2,NA,5,6,10,NA,NA,NA,0)
@@ -110,12 +109,13 @@ na.approx(zz,xout=11, na.rm = FALSE, maxgap=Inf)
 ## Using root mean square error to compare methods
 print(rand.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
-## Error in `[.data.table`(rand.unemp, , lapply(.SD, function(x) mean((x - : Some items of .SDcols are not column names: [impute.li]
+##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
+## 1: 0.00545657           0.007806236         0.006121938 0.001827518
 
 print(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
-##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
-## 1: 0.01346325            0.02575084          0.01189539 0.001355327
+##    impute.ff impute.rm.nolookahead impute.rm.lookahead impute.li
+## 1: 0.2605902              0.222089          0.01617399 0.1324527
 ```
 
 ## Smoothing
@@ -126,19 +126,23 @@ Smoothing is commonelly used forecasting method. Smoothed time series can be use
 ```python
 import pandas as pd
 import numpy as np
+import datetime
 
 unemp = r.unemp
 #unemp.index = unemp.DATE
 
 df = unemp.copy()
-df = df.rename(columns={"UNRATE": "data"})[['data']]
-df.reset_index(drop=True, inplace=True)
+df = df[((df.DATE >=pd.to_datetime('2014-01-01')) & (df.DATE < pd.to_datetime('2019-01-01')))]
+## /Users/lrabalski1/miniforge3/envs/everyday_use/lib/python3.8/site-packages/pandas/core/ops/array_ops.py:73: FutureWarning: Comparison of Timestamp with datetime.date is deprecated in order to match the standard library behavior.  In a future version these will be considered non-comparable.Use 'ts == pd.Timestamp(date)' or 'ts.date() == date' instead.
+##   result = libops.scalar_compare(x.ravel(), y, op)
+df = df.rename(columns={"UNRATE": "data"})
+#df.reset_index(drop=True, inplace=True)
 
-train = df.iloc[-100:-50, :]
-test = df.iloc[-50:-40, :]
+
+train = df[['data']].iloc[:-12, :]
+test = df[['data']].iloc[-12:, :]
 # train.index = pd.to_datetime(train.index)
 # test.index = pd.to_datetime(test.index)
-
 ## We can use the pandas.DataFrame.ewm() function to calculate the exponentially weighted moving average for a certain number of previous periods.
 ```
 
@@ -157,7 +161,7 @@ def moving_average(series, n):
     return average(series[-n:])
 
 moving_average(train.data,4)
-## 3.8500000000000005
+## 4.2
 ```
 
 ### Weighted Moving Average
@@ -179,7 +183,7 @@ def weighted_average(series, weights):
 weights = [0.1, 0.15, 0.25, 0.5]
 weighted_average(train.data.values, weights)
 
-## 3.83
+## 4.16
 ```
 
 ### exponentially weightening
@@ -210,12 +214,6 @@ res_exp_smooth5 = exponential_smoothing(train.data.values, alpha=0.5)
 res_exp_smooth2 = exponential_smoothing(train.data.values, alpha=0.2)
 
 ```
-
-Using Pandas.
-
-When adjust=False, the exponentially weighted function is calculated recursively
-
-The higher is alpha the lower impact of the most fresh data
 
 
 
@@ -260,17 +258,35 @@ res_double_exp_smooth_alpha_9_beta9=double_exponential_smoothing(train.data.valu
 
 a.k.a Holt-Winters Method
 
+#### Initial Trend
+
+For double exponential smoothing we simply used the first two points for the initial trend. With seasonal data we can do better than that, since we can observe many seasons and can extrapolate a better starting trend. The most common practice is to compute the average of trend averages across seasons.
+
 
 ```python
+
 def initial_trend(series, slen):
     sum = 0.0
     for i in range(slen):
         sum += float(series[i+slen] - series[i]) / slen
     return sum / slen
 
-initial_trend(train.data.values,12)
-## -0.057638888888888885
+res_initial = initial_trend(train.data.values,12)
+res_initial
+## -0.07361111111111113
 ```
+
+The value of -0.074 can be interpreted that unemployment rate between first two years change on average by -0.074  between each pair of the same month.
+
+#### Initial Seasonal Components
+
+The situation is even more complicated when it comes to initial values for the seasonal components. Briefly, we need to
+
+1.  compute the average level for every observed season (in our case YEAR) we have,
+
+2.  divide every observed value by the average for the season it's in
+
+3.  and finally average each of these numbers across our observed seasons.
 
 
 ```python
@@ -290,7 +306,25 @@ def initial_seasonal_components(series, slen):
     return seasonals
 
 initial_seasonal_components(train.data.values,12)
-## {0: 0.26458333333333384, 1: 0.26458333333333406, 2: 0.18958333333333366, 3: 0.08958333333333379, 4: 0.08958333333333401, 5: -0.010416666666666075, 6: -0.06041666666666612, 7: -0.08541666666666603, 8: -0.1604166666666662, 9: -0.13541666666666607, 10: -0.21041666666666592, 11: -0.23541666666666616}
+## {0: 0.2833333333333332, 1: 0.2583333333333331, 2: 0.20833333333333304, 3: 0.10833333333333317, 4: 0.10833333333333339, 5: -0.01666666666666683, 6: -0.04166666666666696, 7: -0.04166666666666674, 8: -0.11666666666666714, 9: -0.216666666666667, 10: -0.21666666666666679, 11: -0.3166666666666669}
+```
+
+Seasonal values we can interpret as average distance value from seasonal average. We can see that January {0} is on higher than average and December value {11} is lower than average. We can see that those month differ from each other exactly with the power of those values
+
+
+```python
+df[pd.to_datetime(df.DATE).dt.month.isin([1,12])]
+##            DATE  data
+## 792  2014-01-01   6.6
+## 803  2014-12-01   5.6
+## 804  2015-01-01   5.7
+## 815  2015-12-01   5.0
+## 816  2016-01-01   4.8
+## 827  2016-12-01   4.7
+## 828  2017-01-01   4.7
+## 839  2017-12-01   4.1
+## 840  2018-01-01   4.0
+## 851  2018-12-01   3.9
 ```
 
 
@@ -315,7 +349,7 @@ def triple_exponential_smoothing(series, slen, alpha, beta, gamma, n_preds):
             result.append(smooth+trend+seasonals[i%slen])
     return result
 
-res_triple_exp_smooth = triple_exponential_smoothing(train.data.values, 12, 0.716, 0.029, 0.993, 10)
+res_triple_exp_smooth = triple_exponential_smoothing(train.data.values, 12, 0.7, 0.02, 0.9, 10)
 ```
 
 ### fitting data
@@ -326,19 +360,18 @@ res = [res_exp_smooth8,res_exp_smooth5,res_exp_smooth2,res_double_exp_smooth_alp
 RMSE = []
 i=1
 for i in range(len(res)):
-  RMSE.append(np.sqrt(np.mean(np.square((train.data.values[0:50]- res[i][0:50])))))
+  RMSE.append(np.sqrt(np.mean(np.square((train.data.values[0:48]- res[i][0:48])))))
 RMSE
-## [0.02635076534616426, 0.07374832435325723, 0.20386214445970258, 0.09700191418211901, 0.05564031190607384]
+## [0.029444314294186542, 0.08240165108170797, 0.2272843505233408, 0.10916100840899878, 0.06909009711283208]
 ```
 
-In case of fitting smoothed data to raw data, the best fit possess single exponenetial smoothing method with [**alpha =0.8**]{.underline} (putting higher weight on most recent data). This is exactly what could be expected. Is it then the best [**forecasting method**]{.underline} for my data?
+In case of fitting smoothed data to raw data, the best fit possess single exponenetial smoothing method with **alpha =0.8** (putting higher weight on most recent data). This is exactly what could be expected. Is it then the best **forecasting method** for my data?
 
 Obviously not.
 
-Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one's. We are dealing here with [**lookahead**]{.underline} problem. In order to predict we are using data which shouldn't be available at the moment of making prediction.
+Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one's. We are dealing here with **lookahead** problem. In order to predict we are using data which shouldn't be available at the moment of making prediction.
 
 Out of three methods prediction capabilities posses Holt method (using trend to linearly predict further data points) and Holt-Winter method (using trend and seasonality to predict further data points).
-
 
 ### plot
 
@@ -350,7 +383,7 @@ plt.style.use('Solarize_Light2')
 
    
 plt.clf()
-fig = plt.figure(figsize=(5,10))
+fig = plt.figure(figsize=(5,8))
 # f.set_figwidth(10)#inches
 # f.set_figheight(20)#inches
 ax1 = fig.add_subplot(5, 1, 1) 
@@ -379,11 +412,11 @@ ax2.sharex(ax5)
 ax3.sharex(ax5)
 ax4.sharex(ax5)
 
-#fig.tight_layout()
+fig.tight_layout()
 fig.savefig('index_files/figure-html/unnamed-chunk-15-1.png', bbox_inches='tight')
 
 plt.show()
 
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-1.png" width="100%" />

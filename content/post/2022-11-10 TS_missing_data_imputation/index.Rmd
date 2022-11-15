@@ -137,19 +137,21 @@ Smoothing is commonelly used forecasting method. Smoothed time series can be use
 ```{python}
 import pandas as pd
 import numpy as np
+import datetime
 
 unemp = r.unemp
 #unemp.index = unemp.DATE
 
 df = unemp.copy()
-df = df.rename(columns={"UNRATE": "data"})[['data']]
-df.reset_index(drop=True, inplace=True)
+df = df[((df.DATE >=pd.to_datetime('2014-01-01')) & (df.DATE < pd.to_datetime('2019-01-01')))]
+df = df.rename(columns={"UNRATE": "data"})
+#df.reset_index(drop=True, inplace=True)
 
-train = df.iloc[-100:-50, :]
-test = df.iloc[-50:-40, :]
+
+train = df[['data']].iloc[:-12, :]
+test = df[['data']].iloc[-12:, :]
 # train.index = pd.to_datetime(train.index)
 # test.index = pd.to_datetime(test.index)
-
 ## We can use the pandas.DataFrame.ewm() function to calculate the exponentially weighted moving average for a certain number of previous periods.
 ```
 
@@ -221,20 +223,20 @@ res_exp_smooth2 = exponential_smoothing(train.data.values, alpha=0.2)
 
 ```
 
+```{python, eval=FALSE, include=FALSE}
+
 Using Pandas.
 
 When adjust=False, the exponentially weighted function is calculated recursively
 
 The higher is alpha the lower impact of the most fresh data
 
-```{python, eval=FALSE, include=FALSE}
 unemp['Smooth.1'] = unemp.UNRATE.ewm(alpha=0.1,adjust=False,).mean()
 unemp['Smooth.2'] = unemp.UNRATE.ewm(alpha=0.2,adjust=False).mean()
 
 unemp['Smooth.3'] = unemp.UNRATE.ewm(alpha=0.3,adjust=False,).mean()
 
 import matplotlib.pyplot as plt
-import datetime
 
 plt.clf()
 plt.plot(unemp['UNRATE'], label='raw')
@@ -253,10 +255,6 @@ import json
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from statsmodels.tsa.holtwinters import SimpleExpSmoothing, Holt
-
-
-
-
 
 
 pred = test.copy()
@@ -324,16 +322,33 @@ res_double_exp_smooth_alpha_9_beta9=double_exponential_smoothing(train.data.valu
 
 a.k.a Holt-Winters Method
 
+#### Initial Trend
+
+For double exponential smoothing we simply used the first two points for the initial trend. With seasonal data we can do better than that, since we can observe many seasons and can extrapolate a better starting trend. The most common practice is to compute the average of trend averages across seasons.
+
 ```{python}
+
 def initial_trend(series, slen):
     sum = 0.0
     for i in range(slen):
         sum += float(series[i+slen] - series[i]) / slen
     return sum / slen
 
-initial_trend(train.data.values,12)
-
+res_initial = initial_trend(train.data.values,12)
+res_initial
 ```
+
+The value of `r round(py$res_initial,3)` can be interpreted that unemployment rate between first two years change on average by `r round(py$res_initial,3)`  between each pair of the same month.
+
+#### Initial Seasonal Components
+
+The situation is even more complicated when it comes to initial values for the seasonal components. Briefly, we need to
+
+1.  compute the average level for every observed season (in our case YEAR) we have,
+
+2.  divide every observed value by the average for the season it's in
+
+3.  and finally average each of these numbers across our observed seasons.
 
 ```{python}
 def initial_seasonal_components(series, slen):
@@ -352,6 +367,13 @@ def initial_seasonal_components(series, slen):
     return seasonals
 
 initial_seasonal_components(train.data.values,12)
+
+```
+
+Seasonal values we can interpret as average distance value from seasonal average. We can see that January {0} is on higher than average and December value {11} is lower than average. We can see that those month differ from each other exactly with the power of those values
+
+```{python}
+df[pd.to_datetime(df.DATE).dt.month.isin([1,12])]
 ```
 
 ```{python}
@@ -375,7 +397,7 @@ def triple_exponential_smoothing(series, slen, alpha, beta, gamma, n_preds):
             result.append(smooth+trend+seasonals[i%slen])
     return result
 
-res_triple_exp_smooth = triple_exponential_smoothing(train.data.values, 12, 0.716, 0.029, 0.993, 10)
+res_triple_exp_smooth = triple_exponential_smoothing(train.data.values, 12, 0.7, 0.02, 0.9, 10)
 
 ```
 
@@ -386,18 +408,18 @@ res = [res_exp_smooth8,res_exp_smooth5,res_exp_smooth2,res_double_exp_smooth_alp
 RMSE = []
 i=1
 for i in range(len(res)):
-  RMSE.append(np.sqrt(np.mean(np.square((train.data.values[0:50]- res[i][0:50])))))
+  RMSE.append(np.sqrt(np.mean(np.square((train.data.values[0:48]- res[i][0:48])))))
 RMSE
+
 ```
 
-In case of fitting smoothed data to raw data, the best fit possess single exponenetial smoothing method with [**alpha =0.8**]{.underline} (putting higher weight on most recent data). This is exactly what could be expected. Is it then the best [**forecasting method**]{.underline} for my data?
+In case of fitting smoothed data to raw data, the best fit possess single exponenetial smoothing method with **alpha =0.8** (putting higher weight on most recent data). This is exactly what could be expected. Is it then the best **forecasting method** for my data?
 
 Obviously not.
 
-Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one's. We are dealing here with [**lookahead**]{.underline} problem. In order to predict we are using data which shouldn't be available at the moment of making prediction.
+Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one's. We are dealing here with **lookahead** problem. In order to predict we are using data which shouldn't be available at the moment of making prediction.
 
 Out of three methods prediction capabilities posses Holt method (using trend to linearly predict further data points) and Holt-Winter method (using trend and seasonality to predict further data points).
-
 
 ### plot
 
@@ -408,7 +430,7 @@ plt.style.use('Solarize_Light2')
 
    
 plt.clf()
-fig = plt.figure(figsize=(5,10))
+fig = plt.figure(figsize=(5,8))
 # f.set_figwidth(10)#inches
 # f.set_figheight(20)#inches
 ax1 = fig.add_subplot(5, 1, 1) 
@@ -437,7 +459,7 @@ ax2.sharex(ax5)
 ax3.sharex(ax5)
 ax4.sharex(ax5)
 
-#fig.tight_layout()
+fig.tight_layout()
 fig.savefig('index_files/figure-html/unnamed-chunk-15-1.png', bbox_inches='tight')
 
 plt.show()
