@@ -1,7 +1,7 @@
 ---
 title: "TS - missing data imputation"
 description: null
-date: "2022-10-26"
+date: "2022-11-15"
 tags: ['missing data','time series','imputation']
 categories: ['Time Series']
 toc: yes
@@ -115,7 +115,7 @@ print(rand.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = T
 print(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
 ##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
-## 1: 0.02885301            0.02886261          0.01522241 0.006085746
+## 1: 0.01415367            0.01720191         0.005354331 0.002374783
 ```
 
 ## Smoothing
