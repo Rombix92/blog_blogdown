@@ -64,9 +64,10 @@ project/\
 ```{r}
 
 library(reticulate)
-myenvs=conda_list()
+
 Sys.setenv(RETICULATE_PYTHON = "/Users/lrabalski1/miniforge3/envs/everyday_use/bin/python")
 
+myenvs=conda_list()
 envname=myenvs$name[3]
 use_condaenv(envname, required = TRUE)
 ```
