@@ -2,8 +2,8 @@
 title: "TS - missing data imputation & Smoothing"
 description: null
 date: "2022-11-15"
-tags: ['missing data','time series','imputation']
-categories: ['Time Series']
+tags: ['missing data','time series','imputation', 'python', 'R']
+categories: ['Time Series', 'Smoothing']
 toc: yes
 ---
 
@@ -110,12 +110,12 @@ na.approx(zz,xout=11, na.rm = FALSE, maxgap=Inf)
 print(rand.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
 ##      impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
-## 1: 0.006848552            0.01315145          0.01094933 0.002189743
+## 1: 0.003363029           0.004768931         0.004799555 0.001306917
 
 print(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
-##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
-## 1: 0.02223831            0.02516629          0.01450676 0.001611226
+##    impute.ff impute.rm.nolookahead impute.rm.lookahead impute.li
+## 1: 0.2957906             0.2217154          0.01558493  0.186025
 ```
 
 ## Smoothing

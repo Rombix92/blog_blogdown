@@ -2,8 +2,8 @@
 title: "TS - missing data imputation & Smoothing"
 description: null
 date: "2022-11-15"
-tags: ['missing data','time series','imputation']
-categories: ['Time Series']
+tags: ['missing data','time series','imputation', 'python', 'R']
+categories: ['Time Series', 'Smoothing']
 toc: yes
 ---
 
