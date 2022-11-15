@@ -1,5 +1,5 @@
 ---
-title: "TS - missing data imputation"
+title: "TS - missing data imputation & Smoothing"
 description: null
 date: "2022-11-15"
 tags: ['missing data','time series','imputation']
@@ -109,13 +109,13 @@ na.approx(zz,xout=11, na.rm = FALSE, maxgap=Inf)
 ## Using root mean square error to compare methods
 print(rand.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
-##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
-## 1: 0.00545657           0.007806236         0.006121938 0.001827518
+##      impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
+## 1: 0.006848552            0.01315145          0.01094933 0.002189743
 
 print(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
-##    impute.ff impute.rm.nolookahead impute.rm.lookahead impute.li
-## 1: 0.2605902              0.222089          0.01617399 0.1324527
+##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
+## 1: 0.02223831            0.02516629          0.01450676 0.001611226
 ```
 
 ## Smoothing
@@ -328,6 +328,8 @@ df[pd.to_datetime(df.DATE).dt.month.isin([1,12])]
 ```
 
 
+
+
 ```python
 def triple_exponential_smoothing(series, slen, alpha, beta, gamma, n_preds):
     result = []
@@ -351,6 +353,13 @@ def triple_exponential_smoothing(series, slen, alpha, beta, gamma, n_preds):
 
 res_triple_exp_smooth = triple_exponential_smoothing(train.data.values, 12, 0.7, 0.02, 0.9, 10)
 ```
+
+A Note on α, β and γ
+
+You may be wondering from where values 0.7, 0.02 and 0.9 for α, β and γ It was done by way of trial and error: simply running the algorithm over and over again and selecting the values that give you the smallest SSE. This process is known as fitting.
+
+There are more efficient methods at zooming in on best values. One good algorithm for this is Nelder-Mead, which is what tgres uses.
+
 
 ### fitting data
 
