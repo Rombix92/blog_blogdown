@@ -221,8 +221,6 @@ res_exp_smooth2 = exponential_smoothing(train.data.values, alpha=0.2)
 
 ```
 
-
-
 Using Pandas.
 
 When adjust=False, the exponentially weighted function is calculated recursively
@@ -248,7 +246,6 @@ plt.legend(loc=2)
 plt.show()
 
 ```
-
 
 ```{python, eval=FALSE, include=FALSE}
 import pandas as pd
@@ -292,12 +289,13 @@ plt.show()
 
 I showed some basic forecasting methods: moving average, weighted moving average and, finally, single exponential smoothing. One very important characteristic of all of the above methods is that remarkably, they can only forecast a single point. That's correct, just one.
 
-### Double exponential smoothing 
+### Double exponential smoothing
+
 a.k.a Holt Method
 
 In case of forecasting simple exponential weightening isn't giving good results for data posessing longterm trend. For this purpose it is good to apply method aimed for data with trend (Holt) or with trend and seasonality (Holt-Winter).
 
-Double exponential smoothing is nothing more than exponential smoothing applied to both level and trend. 
+Double exponential smoothing is nothing more than exponential smoothing applied to both level and trend.
 
 ```{python}
 
@@ -319,11 +317,11 @@ def double_exponential_smoothing(series, alpha, beta):
 
 
 res_double_exp_smooth_alpha_9_beta9=double_exponential_smoothing(train.data.values, alpha=0.9, beta=0.9)
-len(res_double_exp_smooth_alpha_9_beta9)
-len(train.data.values)
+
 ```
 
-### Triple Exponential Smoothing 
+### Triple Exponential Smoothing
+
 a.k.a Holt-Winters Method
 
 ```{python}
@@ -336,7 +334,6 @@ def initial_trend(series, slen):
 initial_trend(train.data.values,12)
 
 ```
-
 
 ```{python}
 def initial_seasonal_components(series, slen):
@@ -356,7 +353,6 @@ def initial_seasonal_components(series, slen):
 
 initial_seasonal_components(train.data.values,12)
 ```
-
 
 ```{python}
 def triple_exponential_smoothing(series, slen, alpha, beta, gamma, n_preds):
@@ -383,7 +379,8 @@ res_triple_exp_smooth = triple_exponential_smoothing(train.data.values, 12, 0.71
 
 ```
 
-### error
+### fitting data
+
 ```{python}
 res = [res_exp_smooth8,res_exp_smooth5,res_exp_smooth2,res_double_exp_smooth_alpha_9_beta9,res_triple_exp_smooth]
 RMSE = []
@@ -392,6 +389,15 @@ for i in range(len(res)):
   RMSE.append(np.sqrt(np.mean(np.square((train.data.values[0:50]- res[i][0:50])))))
 RMSE
 ```
+
+In case of fitting smoothed data to raw data, the best fit possess single exponenetial smoothing method with [**alpha =0.8**]{.underline} (putting higher weight on most recent data). This is exactly what could be expected. Is it then the best [**forecasting method**]{.underline} for my data?
+
+Obviously not.
+
+Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one's. We are dealing here with [**lookahead**]{.underline} problem. In order to predict we are using data which shouldn't be available at the moment of making prediction.
+
+Out of three methods prediction capabilities posses Holt method (using trend to linearly predict further data points) and Holt-Winter method (using trend and seasonality to predict further data points).
+
 
 ### plot
 
@@ -438,5 +444,3 @@ plt.show()
 
 
 ```
-
-

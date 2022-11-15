@@ -115,7 +115,7 @@ print(rand.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = T
 print(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
 ##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
-## 1: 0.01415367            0.01720191         0.005354331 0.002374783
+## 1: 0.01346325            0.02575084          0.01189539 0.001355327
 ```
 
 ## Smoothing
@@ -211,8 +211,6 @@ res_exp_smooth2 = exponential_smoothing(train.data.values, alpha=0.2)
 
 ```
 
-
-
 Using Pandas.
 
 When adjust=False, the exponentially weighted function is calculated recursively
@@ -223,17 +221,17 @@ The higher is alpha the lower impact of the most fresh data
 
 
 
-
 ### Conclusion
 
 I showed some basic forecasting methods: moving average, weighted moving average and, finally, single exponential smoothing. One very important characteristic of all of the above methods is that remarkably, they can only forecast a single point. That's correct, just one.
 
-### Double exponential smoothing 
+### Double exponential smoothing
+
 a.k.a Holt Method
 
 In case of forecasting simple exponential weightening isn't giving good results for data posessing longterm trend. For this purpose it is good to apply method aimed for data with trend (Holt) or with trend and seasonality (Holt-Winter).
 
-Double exponential smoothing is nothing more than exponential smoothing applied to both level and trend. 
+Double exponential smoothing is nothing more than exponential smoothing applied to both level and trend.
 
 
 ```python
@@ -256,13 +254,10 @@ def double_exponential_smoothing(series, alpha, beta):
 
 
 res_double_exp_smooth_alpha_9_beta9=double_exponential_smoothing(train.data.values, alpha=0.9, beta=0.9)
-len(res_double_exp_smooth_alpha_9_beta9)
-## 51
-len(train.data.values)
-## 50
 ```
 
-### Triple Exponential Smoothing 
+### Triple Exponential Smoothing
+
 a.k.a Holt-Winters Method
 
 
@@ -276,7 +271,6 @@ def initial_trend(series, slen):
 initial_trend(train.data.values,12)
 ## -0.057638888888888885
 ```
-
 
 
 ```python
@@ -298,7 +292,6 @@ def initial_seasonal_components(series, slen):
 initial_seasonal_components(train.data.values,12)
 ## {0: 0.26458333333333384, 1: 0.26458333333333406, 2: 0.18958333333333366, 3: 0.08958333333333379, 4: 0.08958333333333401, 5: -0.010416666666666075, 6: -0.06041666666666612, 7: -0.08541666666666603, 8: -0.1604166666666662, 9: -0.13541666666666607, 10: -0.21041666666666592, 11: -0.23541666666666616}
 ```
-
 
 
 ```python
@@ -325,7 +318,8 @@ def triple_exponential_smoothing(series, slen, alpha, beta, gamma, n_preds):
 res_triple_exp_smooth = triple_exponential_smoothing(train.data.values, 12, 0.716, 0.029, 0.993, 10)
 ```
 
-### error
+### fitting data
+
 
 ```python
 res = [res_exp_smooth8,res_exp_smooth5,res_exp_smooth2,res_double_exp_smooth_alpha_9_beta9,res_triple_exp_smooth]
@@ -336,6 +330,15 @@ for i in range(len(res)):
 RMSE
 ## [0.02635076534616426, 0.07374832435325723, 0.20386214445970258, 0.09700191418211901, 0.05564031190607384]
 ```
+
+In case of fitting smoothed data to raw data, the best fit possess single exponenetial smoothing method with [**alpha =0.8**]{.underline} (putting higher weight on most recent data). This is exactly what could be expected. Is it then the best [**forecasting method**]{.underline} for my data?
+
+Obviously not.
+
+Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one's. We are dealing here with [**lookahead**]{.underline} problem. In order to predict we are using data which shouldn't be available at the moment of making prediction.
+
+Out of three methods prediction capabilities posses Holt method (using trend to linearly predict further data points) and Holt-Winter method (using trend and seasonality to predict further data points).
+
 
 ### plot
 
@@ -384,5 +387,3 @@ plt.show()
 ```
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="100%" />
-
-
