@@ -7,16 +7,30 @@ categories: ['Time Series', 'Smoothing']
 toc: yes
 ---
 
-
-
-
-
-
+<script src="{{< blogdown/postref >}}index_files/htmlwidgets/htmlwidgets.js"></script>
+<link href="{{< blogdown/postref >}}index_files/visjs/vis-timeline-graph2d.min.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/visjs/vis-timeline-graph2d.min.js"></script>
+<link href="{{< blogdown/postref >}}index_files/timeline/timevis.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/timevis-binding/timevis.js"></script>
+<script src="{{< blogdown/postref >}}index_files/jquery/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="{{< blogdown/postref >}}index_files/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{< blogdown/postref >}}index_files/bootstrap/shim/html5shiv.min.js"></script>
+<script src="{{< blogdown/postref >}}index_files/bootstrap/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 
 ## Dealing with missing data in Time Series
 
-
-```r
+``` r
 require(zoo)
 require(data.table)
 library(dplyr)
@@ -76,6 +90,8 @@ bias.unemp[, impute.rm.lookahead := rollapply(c(UNRATE, NA,NA), 3,
 
 
 
+
+
 ## Mean moving average withou use of lookahead phenomen
 rand.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
              function(x) {
@@ -92,6 +108,7 @@ bias.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
 
 ## linear interpolation fullfilling NA with linear interpolation between two data points
 rand.unemp[, impute.li := na.approx(UNRATE, maxgap=Inf)]
+## Error in `[.data.table`(rand.unemp, , `:=`(impute.li, na.approx(UNRATE, : Supplied 897 items to be assigned to 898 items of column 'impute.li'. If you wish to 'recycle' the RHS please use rep() to make this intent clear to readers of your code.
 bias.unemp[, impute.li := na.approx(UNRATE)]
 
 zz <- c(NA, 9, 3, NA, 3, 2,NA,5,6,10,NA,NA,NA,0)
@@ -109,21 +126,88 @@ na.approx(zz,xout=11, na.rm = FALSE, maxgap=Inf)
 ## Using root mean square error to compare methods
 print(rand.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
-##      impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
-## 1: 0.003363029           0.004768931         0.004799555 0.001306917
+## Error in `[.data.table`(rand.unemp, , lapply(.SD, function(x) mean((x - : Some items of .SDcols are not column names: [impute.li]
 
 print(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = TRUE)),
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
-##    impute.ff impute.rm.nolookahead impute.rm.lookahead impute.li
-## 1: 0.2957906             0.2217154          0.01558493  0.186025
+##     impute.ff impute.rm.nolookahead impute.rm.lookahead   impute.li
+## 1: 0.01463252            0.02707399           0.0158352 0.001972129
 ```
+
+## Metrics
+
+### autocorelation
+
+Autocorelation is measuring the direction of change basing on one point. Since the point on sinusoid close to each other have similar value this autocorelation is high if measuring on distance of pi /6 (0.52). In case of distance of 1 pi value is just opposite so ACF is equal -1.
+
+``` r
+require(data.table)
+## R
+x <- 1:100
+y <- sin(x * pi /6)
+plot(y, type = "b")
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="100%" />
+
+``` r
+acf(y)
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-2.png" width="100%" />
+
+``` r
+
+## R
+cor(y, shift(y, 1), use = "pairwise.complete.obs")
+## [1] 0.870187
+cor(y, shift(y, 2), use = "pairwise.complete.obs") 
+## [1] 0.5111622
+```
+
+## Visualisation
+
+``` r
+require(timevis)
+require(data.table)
+donations <- fread(paste0(data_file_path,"donations.csv"))
+d <- donations[, .(min(timestamp), max(timestamp)), user]
+names(d) <- c("content", "start", "end")
+d <- d[start != end]
+timevis(d[sample(1:nrow(d), 20)])
+```
+
+<div id="htmlwidget-1" class="timevis html-widget" style="width:100%;height:384px;">
+<div class="btn-group zoom-menu">
+<button type="button" class="btn btn-default btn-lg zoom-in" title="Zoom in">+</button>
+<button type="button" class="btn btn-default btn-lg zoom-out" title="Zoom out">-</button>
+</div>
+</div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"items":[{"content":"640","start":"2015-03-29 20:53:15","end":"2018-04-07 11:00:34"},{"content":"638","start":"2017-06-10 13:53:13","end":"2018-05-19 19:00:33"},{"content":"101","start":"2016-09-24 13:22:33","end":"2017-10-14 11:34:39"},{"content":"507","start":"2017-11-10 12:35:10","end":"2018-05-10 18:24:41"},{"content":"784","start":"2017-08-18 20:41:16","end":"2018-03-04 14:30:43"},{"content":"907","start":"2015-09-02 18:45:38","end":"2018-01-13 18:54:00"},{"content":"941","start":"2015-06-23 17:14:05","end":"2018-02-15 19:02:05"},{"content":"51","start":"2017-07-03 21:55:00","end":"2018-05-18 13:46:04"},{"content":"382","start":"2017-10-17 12:08:34","end":"2018-05-29 18:35:52"},{"content":"925","start":"2015-06-14 11:48:28","end":"2018-03-26 22:31:54"},{"content":"341","start":"2018-01-26 12:38:12","end":"2018-03-02 13:08:33"},{"content":"478","start":"2015-03-18 16:37:36","end":"2018-03-11 19:22:58"},{"content":"174","start":"2015-02-11 13:46:22","end":"2017-12-27 17:41:05"},{"content":"874","start":"2017-02-20 22:06:19","end":"2017-11-26 11:22:11"},{"content":"881","start":"2017-05-08 16:54:55","end":"2018-05-26 17:54:33"},{"content":"207","start":"2015-03-14 20:29:34","end":"2018-04-17 13:10:20"},{"content":"14","start":"2017-09-09 19:24:14","end":"2018-05-29 17:41:07"},{"content":"430","start":"2017-12-15 17:54:04","end":"2018-05-20 22:59:19"},{"content":"599","start":"2016-06-03 22:32:25","end":"2018-01-24 15:55:02"},{"content":"144","start":"2016-04-28 21:19:56","end":"2018-02-16 13:38:54"}],"groups":null,"showZoom":true,"zoomFactor":0.5,"fit":true,"options":[],"height":null,"timezone":null,"api":[]},"evals":[],"jsHooks":[]}</script>
+
+### partial-autocorelation
+
+Partial autocorelation shows which point have informational meaning and which simple derives from harmonical periods of time. For seasonal, wihtout noise process, PACF show which correlation for given delay, are the true ones, eliminating redunduntion.It helps to aproximate how much data do we need to poses to apply sufficient window for given time scale.
+
+``` r
+## R
+y <- sin(x * pi /6)
+plot(y[1:30], type = "b") 
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="100%" />
+
+``` r
+pacf(y)
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-2.png" width="100%" />
 
 ## Smoothing
 
 Smoothing is commonelly used forecasting method. Smoothed time series can be used as zero hypothesis to for testing more sophisticated methods.
 
-
-```python
+``` python
 import pandas as pd
 import numpy as np
 import datetime
@@ -148,10 +232,9 @@ test = df[['data']].iloc[-12:, :]
 
 ### moving average
 
-An improvement over simple average is the average of n last points. Obviously the thinking here is that only the recent values matter. Calculation of the moving average involves what is sometimes called a "sliding window" of size n:
+An improvement over simple average is the average of n last points. Obviously the thinking here is that only the recent values matter. Calculation of the moving average involves what is sometimes called a “sliding window” of size n:
 
-
-```python
+``` python
 
 def average(series):
     return float(sum(series))/len(series)
@@ -168,10 +251,9 @@ moving_average(train.data,4)
 
 A weighted moving average is a moving average where within the sliding window values are given different weights, typically so that more recent points matter more.
 
-Instead of selecting a window size, it requires a list of weights ([**which should add up to 1**]{.underline}). For example if we picked [0.1, 0.2, 0.3, 0.4] as weights, we would be giving 10%, 20%, 30% and 40% to the last 4 points respectively. In Python:
+Instead of selecting a window size, it requires a list of weights (<u>**which should add up to 1**</u>). For example if we picked \[0.1, 0.2, 0.3, 0.4\] as weights, we would be giving 10%, 20%, 30% and 40% to the last 4 points respectively. In Python:
 
-
-```python
+``` python
 # weighted average, weights is a list of weights
 def weighted_average(series, weights):
     result = 0.0
@@ -190,17 +272,13 @@ weighted_average(train.data.values, weights)
 
 The exponentially weighted function is calculated recursively:
 
-`$$\begin{split}\begin{split}
-y_0 &= x_0\\
-y_t &= \alpha x_t + (1 - \alpha) y_{t-1} ,
-\end{split}\end{split}$$`
+`$$\begin{split}\begin{split} y_0 &= x_0\\ y_t &= \alpha x_t + (1 - \alpha) y_{t-1} , \end{split}\end{split}$$`
 
-where alpha is smoothing factor `\(0 < \alpha \leq 1\)` . The higher the α, the faster the method "forgets".
+where alpha is smoothing factor `\(0 < \alpha \leq 1\)` . The higher the α, the faster the method “forgets”.
 
-There is an aspect of this method that programmers would appreciate that is of no concern to mathematicians: it's simple and efficient to implement. Here is some Python. Unlike the previous examples, this function returns expected values for the whole series, not just one point.
+There is an aspect of this method that programmers would appreciate that is of no concern to mathematicians: it’s simple and efficient to implement. Here is some Python. Unlike the previous examples, this function returns expected values for the whole series, not just one point.
 
-
-```python
+``` python
 # given a series and alpha, return series of smoothed points
 def exponential_smoothing(series, alpha):
     result = [series[0]] # first value is same as series
@@ -212,27 +290,21 @@ def exponential_smoothing(series, alpha):
 res_exp_smooth8 = exponential_smoothing(train.data.values, alpha=0.8)
 res_exp_smooth5 = exponential_smoothing(train.data.values, alpha=0.5)
 res_exp_smooth2 = exponential_smoothing(train.data.values, alpha=0.2)
-
 ```
-
-
-
-
 
 ### Conclusion
 
-I showed some basic forecasting methods: moving average, weighted moving average and, finally, single exponential smoothing. One very important characteristic of all of the above methods is that remarkably, they can only forecast a single point. That's correct, just one.
+I showed some basic forecasting methods: moving average, weighted moving average and, finally, single exponential smoothing. One very important characteristic of all of the above methods is that remarkably, they can only forecast a single point. That’s correct, just one.
 
 ### Double exponential smoothing
 
 a.k.a Holt Method
 
-In case of forecasting simple exponential weightening isn't giving good results for data posessing longterm trend. For this purpose it is good to apply method aimed for data with trend (Holt) or with trend and seasonality (Holt-Winter).
+In case of forecasting simple exponential weightening isn’t giving good results for data posessing longterm trend. For this purpose it is good to apply method aimed for data with trend (Holt) or with trend and seasonality (Holt-Winter).
 
 Double exponential smoothing is nothing more than exponential smoothing applied to both level and trend.
 
-
-```python
+``` python
 
 # given a series and alpha, return series of smoothed points
 def double_exponential_smoothing(series, alpha, beta):
@@ -262,8 +334,7 @@ a.k.a Holt-Winters Method
 
 For double exponential smoothing we simply used the first two points for the initial trend. With seasonal data we can do better than that, since we can observe many seasons and can extrapolate a better starting trend. The most common practice is to compute the average of trend averages across seasons.
 
-
-```python
+``` python
 
 def initial_trend(series, slen):
     sum = 0.0
@@ -276,7 +347,7 @@ res_initial
 ## -0.07361111111111113
 ```
 
-The value of -0.074 can be interpreted that unemployment rate between first two years change on average by -0.074  between each pair of the same month.
+The value of -0.074 can be interpreted that unemployment rate between first two years change on average by -0.074 between each pair of the same month.
 
 #### Initial Seasonal Components
 
@@ -284,12 +355,11 @@ The situation is even more complicated when it comes to initial values for the s
 
 1.  compute the average level for every observed season (in our case YEAR) we have,
 
-2.  divide every observed value by the average for the season it's in
+2.  divide every observed value by the average for the season it’s in
 
 3.  and finally average each of these numbers across our observed seasons.
 
-
-```python
+``` python
 def initial_seasonal_components(series, slen):
     seasonals = {}
     season_averages = []
@@ -311,8 +381,7 @@ initial_seasonal_components(train.data.values,12)
 
 Seasonal values we can interpret as average distance value from seasonal average. We can see that January {0} is on higher than average and December value {11} is lower than average. We can see that those month differ from each other exactly with the power of those values
 
-
-```python
+``` python
 df[pd.to_datetime(df.DATE).dt.month.isin([1,12])]
 ##            DATE  data
 ## 792  2014-01-01   6.6
@@ -327,10 +396,7 @@ df[pd.to_datetime(df.DATE).dt.month.isin([1,12])]
 ## 851  2018-12-01   3.9
 ```
 
-
-
-
-```python
+``` python
 def triple_exponential_smoothing(series, slen, alpha, beta, gamma, n_preds):
     result = []
     seasonals = initial_seasonal_components(series, slen)
@@ -360,11 +426,9 @@ You may be wondering from where values 0.7, 0.02 and 0.9 for α, β and γ It wa
 
 There are more efficient methods at zooming in on best values. One good algorithm for this is Nelder-Mead, which is what tgres uses.
 
-
 ### fitting data
 
-
-```python
+``` python
 res = [res_exp_smooth8,res_exp_smooth5,res_exp_smooth2,res_double_exp_smooth_alpha_9_beta9,res_triple_exp_smooth]
 RMSE = []
 i=1
@@ -378,14 +442,13 @@ In case of fitting smoothed data to raw data, the best fit possess single expone
 
 Obviously not.
 
-Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one's. We are dealing here with **lookahead** problem. In order to predict we are using data which shouldn't be available at the moment of making prediction.
+Since all method take data point from time *t* for estimating smoothed value for time *t* such a models are not forecasting one’s. We are dealing here with **lookahead** problem. In order to predict we are using data which shouldn’t be available at the moment of making prediction.
 
 Out of three methods prediction capabilities posses Holt method (using trend to linearly predict further data points) and Holt-Winter method (using trend and seasonality to predict further data points).
 
 ### plot
 
-
-```python
+``` python
 import matplotlib.pyplot as plt
 import datetime
 plt.style.use('Solarize_Light2')
@@ -425,7 +488,6 @@ fig.tight_layout()
 fig.savefig('index_files/figure-html/unnamed-chunk-15-1.png', bbox_inches='tight')
 
 plt.show()
-
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-16-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="100%" />

@@ -94,6 +94,8 @@ bias.unemp[, impute.rm.lookahead := rollapply(c(UNRATE, NA,NA), 3,
 
 
 
+
+
 ## Mean moving average withou use of lookahead phenomen
 rand.unemp[, impute.rm.nolookahead := rollapply(c(NA, NA, UNRATE), 3,
              function(x) {
@@ -129,6 +131,50 @@ print(bias.unemp[ , lapply(.SD, function(x) mean((x - unemp$UNRATE)^2, na.rm = T
              .SDcols = c("impute.ff", "impute.rm.nolookahead", "impute.rm.lookahead", "impute.li")])
 
 ```
+
+## Metrics
+### autocorelation
+
+Autocorelation is measuring the direction of change basing on one point. Since the point on sinusoid close to each other have similar value this autocorelation is high if measuring on distance of pi /6 (0.52). In case of distance of 1 pi value is just opposite so ACF is equal -1.
+```{r}
+require(data.table)
+## R
+x <- 1:100
+y <- sin(x * pi /6)
+plot(y, type = "b")
+acf(y)
+
+## R
+cor(y, shift(y, 1), use = "pairwise.complete.obs")
+cor(y, shift(y, 2), use = "pairwise.complete.obs") 
+```
+
+## Visualisation
+
+Allows for  visualising multiple micro time series within dataset. It is called Gant chart,
+```{r}
+require(timevis)
+require(data.table)
+donations <- fread(paste0(data_file_path,"donations.csv"))
+d <- donations[, .(min(timestamp), max(timestamp)), user]
+names(d) <- c("content", "start", "end")
+d <- d[start != end]
+timevis(d[sample(1:nrow(d), 20)])
+```
+
+### partial-autocorelation
+
+Partial autocorelation shows which point have informational meaning and which simple derives from harmonical periods of time. For seasonal, wihtout noise process, PACF show which correlation for given delay, are the true ones, eliminating redunduntion.It helps to aproximate how much data do we need to poses  to apply sufficient window for given time scale. 
+```{r}
+## R
+y <- sin(x * pi /6)
+plot(y[1:30], type = "b") 
+pacf(y)
+
+```
+
+## Simulation
+
 
 ## Smoothing
 
@@ -475,3 +521,11 @@ plt.show()
 
 
 ```
+
+
+## regression
+
+### autoregression models
+As name suggest autoregression is regression made upon past valuesz
+
+
