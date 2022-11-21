@@ -1,0 +1,280 @@
+---
+title: "TS - forecast"
+description: null
+date: "2022-11-20"
+tags: []
+categories: ['Time Series', 'forecast']
+toc: yes
+---
+
+```{r markdown_parameters, include=FALSE}
+#markdown ----
+knitr::opts_chunk$set(#fig.width=12, 
+                      fig.height=4,
+                       out.width = '100%'
+                      ) 
+knitr::opts_chunk$set(include =TRUE, #prevents code and results from appearing in the finished file. R Markdown still runs the code in the chunk, and the results can be used by other chunks.
+
+                      warning = FALSE,
+                      message =FALSE,
+                      collapse=TRUE,
+                      error=TRUE
+                      )
+options(scipen=999)
+```
+
+```{r, include =FALSE}
+
+library(reticulate)
+
+Sys.setenv(RETICULATE_PYTHON = "/Users/lrabalski1/miniforge3/envs/everyday_use/bin/python")
+
+myenvs=conda_list()
+envname=myenvs$name[3]
+use_condaenv(envname, required = TRUE)
+
+```
+
+```{r, include =FALSE}
+data_file_path = '/Users/lrabalski1/Desktop/prv/data/'
+
+df <- read.csv(url("https://archive.ics.uci.edu/ml/machine-learning-databases/00409/Daily_Demand_Forecasting_Orders.csv"), header=TRUE, sep=';')
+```
+
+## autoregression
+
+### AR model
+
+As name suggest autoregression is regression made upon past values. The simplest autoregression model is known as AR(1): $y_t=b_0+b_1*y_{t-1}+e_t$ $e_t$ is changeable within time error with stable variance and mean = 0.
+
+First we plot the data in chronological order. Since we will model this as an AR process, we look to the PACF to set a cutoff on the order of the process
+
+The database was collected during 60 days, this is a real database of a Brazilian company of large logistics. Twelve predictive attributes and a target that is the total of orders for daily.
+
+```{r}
+plot(df$Banking.orders..2., type='l')
+```
+
+```{r}
+pacf(df$Banking.orders..2.)
+```
+
+We can see that the value of the PACF crosses the 5% significance threshold at lag 3. This is consistent with the results from the ar() function available in R's stats package. ar() automatically chooses the order of an autoregressive model if one is not specified:
+
+```{r}
+ar(df$Banking.orders..2., method = "mle")
+```
+
+Notice that the ar() function has also provided us with the coefficients for the model. We may, however, want to limit the coefficients. For example, looking at the PACF, we might wonder whether we really want to include a coefficient for the lag -- 1 term or whether we should assign that term a mandatory coefficient of 0 given that its PACF value is well below the threshold used for significance. In this case, we can use the arima() function also from the stats package. Here, we demonstrate how to call the function to fit an AR(3), by setting the order parameter to c(3, 0, 0), where 3 refers to the order of the AR component
+
+```{r}
+est <- arima(x = df$Banking.orders..2.,order = c(3, 0, 0))
+est
+
+```
+
+To inject prior knowledge or opinion into our model, we can constraint a coefficient to be 0. For example, if we want to constrain the lag -- 1 term to remain 0 in our model, we use the following call:
+
+```{r}
+est.1 <- arima(x =  df$Banking.orders..2.,order = c(3, 0, 0), 
+               fixed = c(0, NA, NA, NA))
+est.1
+```
+
+We now inspect our model performance on our training data to assess the goodness of fit of our model to this data set. We can do this in two ways. First, we plot the ACF of the residuals (that, is the errors) to see if there is a pattern of self-correlation that our model does not cover.
+
+Plotting the residuals is quite simple thanks to the output of the arima() function
+
+```{r}
+acf(est.1$residuals)
+est.1
+```
+
+None of the values of the ACF cross the significance threshold.
+
+We do not see a pattern of self-correlation here among the residuals (i.e., the error terms). If we had seen such a pattern, we would likely want to return to our original model and consider including additional terms to add complexity to account for the significant autocorrelation of the residuals.
+
+### forecasting 1 time step ahead
+
+applying by hand
+
+what's important there are different type of parametrizations of ARIMA models
+
+There are multiple (equivalent) parametrizations for ARIMA models. There's the one you quote (sometimes called the ARMAX parametrization):
+
+$y_t = \phi y_{t-1} + c + \epsilon_t$
+
+And the equivalent regression with ARMA errors parametrization:
+
+$(y_t - c') = \phi (y_{t-1} - c') + \epsilon_t$
+
+The forecast package uses the second parametrization.
+
+The package author explains the difference between the two parametrizations and the rationale for choosing this one on his blog. Mostly, when adding other regressors (other than the constant), this version is easier to interpret. Since the function forecast::Arima allows for other regressors, it makes sense to treat them all in the same way.
+
+[url](https://stats.stackexchange.com/questions/236633/r-arima-order1-0-0-forecast-not-giving-what-expected)
+
+```{r}
+est.1$coef['intercept']
+est.1$coef['ar1']
+est.1$coef['ar2']
+est.1$coef['ar3']
+
+
+x<-c(NA,NA,NA,df$Banking.orders..2.)
+
+y_pred = zoo::rollapply(zoo(x),
+               width=3,
+               FUN=function(w){
+                 est.1$coef['intercept'] + 
+dplyr::coalesce(est.1$coef['ar1']*(w[3]-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar2']*(w[2]-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar3']*(w[1]-est.1$coef['intercept']),0) 
+                 
+                
+                 },
+               partial = FALSE
+               )
+
+y_pred <- c(as.vector(y_pred))
+
+```
+
+```{r}
+plot(df$Banking.orders..2., type = 'l')
+lines(fitted(est.1,h=1), col = 3, lwd = 5) ## use the forecast package
+lines(y_pred, col = 6, lwd = 2) ## fitted by hand
+```
+
+Now let’s think about the quality of the forecast. If we calculate the correlation between the predicted value and the actual value, we get 0.29. This is not bad in some contexts, but remember that sometimes differencing the data will remove what seemed like a strong relationship and replace it with one that is essentially random.
+This will be the case particularly if the data was not truly stationary when we fit it, so that an unidentified trend masquerades as good model performance when it is actually a trait of the data we should have addressed before modeling.
+
+We can difference both the series and the predicted values to see whether the change from one time period to the next is well predicted by the model. Even after differenc‐ ing, our predictions and the data show similar patterns, suggesting our model is a meaningful one
+```{r}
+cor(y_pred[1:60],df$Banking.orders..2.[1:60])
+cor(diff(y_pred)[1:59],diff(df$Banking.orders..2.)[1:59])
+plot(diff(df$Banking.orders..2.)[1:59],diff(y_pred)[1:59])
+```
+
+##
+
+Looking back at the original plot of the forecast versus actual values, we see that the main difference between the forecast and the data is that the forecast is less variable than the data. 
+
+It may predict the direction of the future correctly, but not the scale of the change from one time period to another. This is not a problem per se but rather reflects the fact that forecasts are means of the predicted distributions and so necessarily will have lower variability than sampled data.
+
+As you can see in the Figure below, the variance of the prediction decreases with increasing forward horizon. The reason for this—which highlights an important limitation of the model—is that the further forward in time we go, the less the actual data matters because the coefficients for input data look only at a finite previous set of time points (in this model, going back only to lag – 3; i.e., time – 3). 
+The future prediction approaches the mean value of the series as the time horizon grows, and hence the variance of both the error term and of the forecast values shrinks to 0 as the forecast values tend toward the unconditional mean value.
+
+
+
+```{r}
+plot(df$Banking.orders..2., type = 'l')
+lines(fitted(est.1,h=1), col = 2, lwd = 6) ## use the forecast package
+lines(fitted(est.1,h=4), col = 4, lwd = 4) ## use the forecast package
+lines(fitted(est.1,h=7), col = 3, lwd = 2) ## fitted by hand
+
+fitted(est.1,h=2)
+
+w<-df$Banking.orders..2.
+
+# y_hat_4 = est.1$coef['intercept'] + 
+# dplyr::coalesce(est.1$coef['ar1']*(w[3]-est.1$coef['intercept']),0) + 
+# dplyr::coalesce(est.1$coef['ar2']*(w[2]-est.1$coef['intercept']),0) + 
+# dplyr::coalesce(est.1$coef['ar3']*(w[1]-est.1$coef['intercept']),0)
+# 
+# y_hat_5 = est.1$coef['intercept'] + 
+# dplyr::coalesce(est.1$coef['ar1']*(w[4]-est.1$coef['intercept']),0) + 
+# dplyr::coalesce(est.1$coef['ar2']*(w[3]-est.1$coef['intercept']),0) + 
+# dplyr::coalesce(est.1$coef['ar3']*(w[2]-est.1$coef['intercept']),0) 
+
+y_hat_6 = est.1$coef['intercept'] + 
+dplyr::coalesce(est.1$coef['ar1']*(w[5]-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar2']*(w[4]-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar3']*(w[3]-est.1$coef['intercept']),0) 
+
+y_hat_7_window_2 = est.1$coef['intercept'] + 
+dplyr::coalesce(est.1$coef['ar1']*(y_hat_6-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar2']*(w[5]-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar3']*(w[4]-est.1$coef['intercept']),0) 
+
+y_hat_8_window_3 = est.1$coef['intercept'] + 
+dplyr::coalesce(est.1$coef['ar1']*(y_hat_7_window_2-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar2']*(y_hat_6-est.1$coef['intercept']),0) + 
+dplyr::coalesce(est.1$coef['ar3']*(w[5]-est.1$coef['intercept']),0) 
+
+
+
+
+fitted(est.1,h=3)
+y_hat_8_window_3
+fitted(est.1,h=2)
+
+c(y_hat_4,y_hat_5,y_hat_6)
+c(fitted(est.1,h=1)[4],fitted(est.1,h=1)[5],fitted(est.1,h=1)[6])
+c(fitted(est.1,h=2)[4],fitted(est.1,h=2)[5],fitted(est.1,h=2)[6])
+c(fitted(est.1,h=3)[4],fitted(est.1,h=3)[5],fitted(est.1,h=3)[6],fitted(est.1,h=3)[7])
+
+
+```
+
+```{r}
+## R
+var(fitted(est.1, h = 3), na.rm = TRUE)
+var(fitted(est.1, h = 5), na.rm = TRUE) 
+var(fitted(est.1, h = 10), na.rm = TRUE) 
+var(fitted(est.1, h = 20), na.rm = TRUE) 
+```
+
+```{python}
+#https://machinelearningmastery.com/autoregression-models-time-series-forecasting-python/
+# create and evaluate an updated autoregressive model
+from pandas import read_csv
+from matplotlib import pyplot
+from statsmodels.tsa.ar_model import AutoReg
+from sklearn.metrics import mean_squared_error
+from math import sqrt
+
+
+# load dataset
+series = r.df
+serries = series['Banking.orders..2.']
+serries
+# split dataset
+X = serries
+train, test = X[1:len(X)-7], X[len(X)-7:]
+test=test.reset_index(drop=True)
+# train autoregression
+window = 3
+model = AutoReg(train, lags=3, lags=[2, 3])
+
+model_fit = model.fit()
+coef = model_fit.params
+coef
+# walk forward over time steps in test
+history = train[len(train)-window:]
+history=history.reset_index(drop=True)
+i=0
+history = [history[i] for i in range(len(history))]
+predictions = list()
+
+
+for t in range(len(test)):
+	length = len(history)
+	lag = [history[i] for i in range(length-window,length)]
+	yhat = coef[0]
+	for d in range(window):
+		yhat += coef[d+1] * lag[window-d-1]
+	obs = test[t]
+	predictions.append(yhat)
+	history.append(obs)
+	print('predicted=%f, expected=%f' % (yhat, obs))
+
+
+rmse = sqrt(mean_squared_error(test, predictions))
+print('Test RMSE: %.3f' % rmse)
+# plot
+pyplot.clf()
+pyplot.plot(test)
+pyplot.plot(predictions, color='red')
+pyplot.show()
+```
