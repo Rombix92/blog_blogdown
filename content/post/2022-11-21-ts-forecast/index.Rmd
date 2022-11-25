@@ -46,31 +46,17 @@ data_file_path = '/Users/lrabalski1/Desktop/prv/data/'
 df <- read.csv(url("https://archive.ics.uci.edu/ml/machine-learning-databases/00409/Daily_Demand_Forecasting_Orders.csv"), header=TRUE, sep=';') 
 ```
 
-## AR
-
-As name suggest autoregression is regression made upon past values. The simplest autoregression model is known as AR(1): $y_t=b_0+b_1*y_{t-1}+e_t$ $e_t$ is changeable within time error with stable variance and mean = 0.
 
 
-## MA model
 
-Do not confuse the MA model (moving average model) with a moving average. They are not the same thing.
-
-MA models are by definition weakly stationary.
-
-A moving average model can be expressed similarly to an autoregressive model except that the terms included in the linear equation refer to present and past error terms rather than present and past values of the process itself. So an MA model of order q is expressed as:
-
-$yt = μ +e_t +θ_1 × e_{t-1} +θ_2 × e_{t-2}...+θ_q × e_{t-q}$
-
--   Economists talk about these error terms as "shocks" to the system,
-
--   while someone with an electrical engineering background could talk about this as a series of impulses and the model itself as a finite impulse response filter, meaning that the effects of any particular impulse remain only for a finite period of time.
-
-The wording is unimportant, but the concept of many independent events at different past times affecting the current value of the process, each making an individual contribution, is the main idea.
+# simple case
 
 
-## simple case
+## general exploration of TS
 
-### exploration of TS
+First we plot the data in chronological order. Since we will model this as an AR process, we look to the PACF to set a cutoff on the order of the process
+
+The database was collected during 60 days, this is a real database of a Brazilian company of large logistics. Twelve predictive attributes and a target that is the total of orders for daily.
 
 Data looks stationary.
 
@@ -80,19 +66,12 @@ abline(reg=lm(df$Banking.orders..2.~index(df)))
 ```
 
 
-First we plot the data in chronological order. Since we will model this as an AR process, we look to the PACF to set a cutoff on the order of the process
+## AR
 
-The database was collected during 60 days, this is a real database of a Brazilian company of large logistics. Twelve predictive attributes and a target that is the total of orders for daily.
+As name suggest autoregression is regression made upon past values. The simplest autoregression model is known as AR(1): $y_t=b_0+b_1*y_{t-1}+e_t$ $e_t$ is changeable within time error with stable variance and mean = 0.
 
-```{r}
-plot(df$Banking.orders..2., type='l')
-```
-This apparently not MA process. In a MA series of lag n, we will not get any correlation between x(t) and x(t – n -1) . The ACF cuts off at nth lag.
 
-```{R}
-acf(df$Banking.orders..2.)
-```
-
+### selecting parameter of AR
 
 ```{r}
 pacf(df$Banking.orders..2.)
@@ -210,6 +189,8 @@ lines(fitted(est.1,h=4), col = 4, lwd = 4) ## use the forecast package
 lines(fitted(est.1,h=7), col = 3, lwd = 2) ## use the forecast package
 ```
 
+### calculating forecast by hand
+
 Below how prediction for point 8 in time series in calculcated using window_width=3
 
 ```{r}
@@ -247,6 +228,123 @@ var(fitted(est.1, h = 3), na.rm = TRUE)
 var(fitted(est.1, h = 5), na.rm = TRUE) 
 var(fitted(est.1, h = 10), na.rm = TRUE) 
 var(fitted(est.1, h = 20), na.rm = TRUE) 
+```
+
+## MA model
+
+Do not confuse the MA model (moving average model) with a moving average. They are not the same thing.
+
+MA models are by definition weakly stationary.
+
+A moving average model can be expressed similarly to an autoregressive model except that the terms included in the linear equation refer to present and past error terms rather than present and past values of the process itself. So an MA model of order q is expressed as:
+
+$yt = μ +e_t +θ_1 × e_{t-1} +θ_2 × e_{t-2}...+θ_q × e_{t-q}$
+
+-   Economists talk about these error terms as "shocks" to the system,
+
+-   while someone with an electrical engineering background could talk about this as a series of impulses and the model itself as a finite impulse response filter, meaning that the effects of any particular impulse remain only for a finite period of time.
+
+The wording is unimportant, but the concept of many independent events at different past times affecting the current value of the process, each making an individual contribution, is the main idea.
+
+### selecting parameter of AR
+
+We see significant values at lags 3 and 9, so we fit an MA model with these lags. 
+
+```{r}
+acf(df$Banking.orders..2.)
+```
+
+```{r}
+ma.est = arima(x = df$Banking.orders..2.,
+                     order = c(0, 0, 9),
+  fixed = c(0, 0, NA, rep(0, 5), NA, NA))
+ma.est
+```
+
+Note that the Box.test() input requires us to specify the number of degrees of freedom— that is, how many model parameters were free to be estimated rather than being con‐ strained to a specific value. In this case, the free parameters were the intercept as well as the MA3 and MA9 terms.
+
+We cannot reject the null hypothesis that there is no temporal correlation between residual points. 
+```{r}
+Box.test(ma.est$residuals, lag = 10, type = "Ljung", fitdf = 3)
+```
+
+
+
+### calculating forecast by hand
+
+# this is equasion for proces MA(1), based on this equasation parameters are calculated
+$y_t = μ + θ_1 × e_{t -1} + e_t$
+Then if i want to predict future one point forward i am getting following equasation:
+
+$y_{t+1} = μ + θ_1 ×  e_{t} + e_{t+1}$. 
+
+Since I don't know value of$ e_{t+1}$ it is diminishing and i finished with following equsation
+
+$y_{t+1} = μ + θ_1 ×  e_{t} $. 
+
+```{r}
+
+fitted(ma.est, h=1)[11]
+fitted(ma.est)
+ma.est$residuals
+
+ts<-df$Banking.orders..2.
+
+ma.est$coef['intercept']
+
+res=c()
+h=1
+for (i in seq(11,60)){
+  res = c(res,
+          ma.est$coef['intercept'] + # ma.est$residuals[i] tego nie wliczam bo nie znam w błedu 1 punkt w przyszłość
+  ma.est$coef[['ma3']] * ma.est$residuals[i-3 +h] +   
+  ma.est$coef[['ma9']] * ma.est$residuals[i-9 +h] 
+  )
+}
+
+
+
+
+
+```
+
+
+### forecasting 1 time step ahead
+
+
+```{r}
+fitted(ma.est, h=1)
+```
+
+
+
+MA models exhibit strong mean reversion and so forecasts rapidly converge to the mean of the process. This makes sense given that the process is considered to be a function of white noise.
+
+```{r}
+plot(c(df$Banking.orders..2.,rep(NA,12)), type = 'l')
+lines(c(fitted(ma.est, h=1),predict(ma.est, n.ahead = 12)$pred)
+      , col = 3, lwd = 5) ## use the forecast package
+lines(c(rep(NA,11),res)
+      , col = 4, lwd = 2) ## by hand
+
+```
+
+If you forecast beyond the range of the model established by its order, the forecast will necessarily be the mean of the process by definition of the process. Consider an MA(1) model:
+$yt = μ + θ1 × et -1 + et$
+To predict one time step in the future, our estimate for $y_{t+1} = μ + θ1 × yt + et$. 
+
+If we want to predict two time steps in the future, our estimate is: 
+$E(y_{t+2} =μ+e_{t+2} +θ_1 ×e_{t+1})=μ+0+θ_1 ×0=μ$
+
+With an MA(1) process we cannot offer an informed prediction beyond one step ahead, and for an MA(q) process in general we cannot offer a more informed predic‐ tion beyond q steps than the mean value emitted by the process. By informed predic‐ tion, I mean one in which our most recent measurements have an impact on the forecast.
+
+
+We can see this by producing predictions with our MA(9) model that we just fit, and for which we now seek predictions 10 time steps ahead.
+
+When we attempt to predict 10 time steps into the future, we predict the mean for every time step
+```{r}
+fitted(ma.est, h=10)[40:50]
+fitted(ma.est, h=9)[40:50]
 ```
 
 ## more complicated case

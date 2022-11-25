@@ -15,31 +15,17 @@ toc: true
 
 
 
-## AR
-
-As name suggest autoregression is regression made upon past values. The simplest autoregression model is known as AR(1): `\(y_t=b_0+b_1*y_{t-1}+e_t\)` `\(e_t\)` is changeable within time error with stable variance and mean = 0.
 
 
-## MA model
 
-Do not confuse the MA model (moving average model) with a moving average. They are not the same thing.
-
-MA models are by definition weakly stationary.
-
-A moving average model can be expressed similarly to an autoregressive model except that the terms included in the linear equation refer to present and past error terms rather than present and past values of the process itself. So an MA model of order q is expressed as:
-
-`\(yt = μ +e_t +θ_1 × e_{t-1} +θ_2 × e_{t-2}...+θ_q × e_{t-q}\)`
-
--   Economists talk about these error terms as "shocks" to the system,
-
--   while someone with an electrical engineering background could talk about this as a series of impulses and the model itself as a finite impulse response filter, meaning that the effects of any particular impulse remain only for a finite period of time.
-
-The wording is unimportant, but the concept of many independent events at different past times affecting the current value of the process, each making an individual contribution, is the main idea.
+# simple case
 
 
-## simple case
+## general exploration of TS
 
-### exploration of TS
+First we plot the data in chronological order. Since we will model this as an AR process, we look to the PACF to set a cutoff on the order of the process
+
+The database was collected during 60 days, this is a real database of a Brazilian company of large logistics. Twelve predictive attributes and a target that is the total of orders for daily.
 
 Data looks stationary.
 
@@ -52,32 +38,19 @@ abline(reg=lm(df$Banking.orders..2.~index(df)))
 <img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-3-1.png" width="100%" />
 
 
-First we plot the data in chronological order. Since we will model this as an AR process, we look to the PACF to set a cutoff on the order of the process
+## AR
 
-The database was collected during 60 days, this is a real database of a Brazilian company of large logistics. Twelve predictive attributes and a target that is the total of orders for daily.
-
-
-```r
-plot(df$Banking.orders..2., type='l')
-```
-
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="100%" />
-This apparently not MA process. In a MA series of lag n, we will not get any correlation between x(t) and x(t – n -1) . The ACF cuts off at nth lag.
+As name suggest autoregression is regression made upon past values. The simplest autoregression model is known as AR(1): `\(y_t=b_0+b_1*y_{t-1}+e_t\)` `\(e_t\)` is changeable within time error with stable variance and mean = 0.
 
 
-```r
-acf(df$Banking.orders..2.)
-```
-
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-5-1.png" width="100%" />
-
+### selecting parameter of AR
 
 
 ```r
 pacf(df$Banking.orders..2.)
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-6-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-4-1.png" width="100%" />
 
 We can see that the value of the PACF crosses the 5% significance threshold at lag 3. This is consistent with the results from the ar() function available in R's stats package. ar() automatically chooses the order of an autoregressive model if one is not specified:
 
@@ -131,7 +104,7 @@ Plotting the residuals is quite simple thanks to the output of the arima() funct
 acf(est.1$residuals)
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-8-1.png" width="100%" />
 
 ```r
 est.1
@@ -212,7 +185,7 @@ lines(fitted(est.1,h=1), col = 3, lwd = 5) ## use the forecast package
 lines(y_pred, col = 6, lwd = 2) ## fitted by hand
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-10-1.png" width="100%" />
 
 Now let's think about the quality of the forecast. If we calculate the correlation between the predicted value and the actual value, we get 0.29. This is not bad in some contexts, but remember that sometimes differencing the data will remove what seemed like a strong relationship and replace it with one that is essentially random. This will be the case particularly if the data was not truly stationary when we fit it, so that an unidentified trend masquerades as good model performance when it is actually a trait of the data we should have addressed before modeling.
 
@@ -227,7 +200,7 @@ cor(diff(y_pred)[1:59],diff(df$Banking.orders..2.)[1:59])
 plot(diff(df$Banking.orders..2.)[1:59],diff(y_pred)[1:59])
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-13-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-11-1.png" width="100%" />
 
 ### Forecasting many steps into the future
 
@@ -245,7 +218,7 @@ lines(fitted(est.1,h=4), col = 4, lwd = 4) ## use the forecast package
 lines(fitted(est.1,h=7), col = 3, lwd = 2) ## use the forecast package
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-14-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-12-1.png" width="100%" />
 
 Below how prediction for point 8 in time series in calculcated using window_width=3
 
@@ -292,6 +265,124 @@ var(fitted(est.1, h = 20), na.rm = TRUE)
 ## [1] 1176.689
 ```
 
+## MA model
+
+Do not confuse the MA model (moving average model) with a moving average. They are not the same thing.
+
+MA models are by definition weakly stationary.
+
+A moving average model can be expressed similarly to an autoregressive model except that the terms included in the linear equation refer to present and past error terms rather than present and past values of the process itself. So an MA model of order q is expressed as:
+
+`\(yt = μ +e_t +θ_1 × e_{t-1} +θ_2 × e_{t-2}...+θ_q × e_{t-q}\)`
+
+-   Economists talk about these error terms as "shocks" to the system,
+
+-   while someone with an electrical engineering background could talk about this as a series of impulses and the model itself as a finite impulse response filter, meaning that the effects of any particular impulse remain only for a finite period of time.
+
+The wording is unimportant, but the concept of many independent events at different past times affecting the current value of the process, each making an individual contribution, is the main idea.
+
+### selecting parameter of AR
+
+We see significant values at lags 3 and 9, so we fit an MA model with these lags. 
+
+
+```r
+acf(df$Banking.orders..2.)
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-15-1.png" width="100%" />
+
+
+```r
+ma.est = arima(x = df$Banking.orders..2.,
+                     order = c(0, 0, 9),
+  fixed = c(0, 0, NA, rep(0, 5), NA, NA))
+ma.est
+## 
+## Call:
+## arima(x = df$Banking.orders..2., order = c(0, 0, 9), fixed = c(0, 0, NA, rep(0, 
+##     5), NA, NA))
+## 
+## Coefficients:
+##       ma1  ma2      ma3  ma4  ma5  ma6  ma7  ma8      ma9  intercept
+##         0    0  -0.4725    0    0    0    0    0  -0.0120  79689.809
+## s.e.    0    0   0.1459    0    0    0    0    0   0.1444   2674.593
+## 
+## sigma^2 estimated as 1399698249:  log likelihood = -717.31,  aic = 1442.61
+```
+
+Note that the Box.test() input requires us to specify the number of degrees of freedom— that is, how many model parameters were free to be estimated rather than being con‐ strained to a specific value. In this case, the free parameters were the intercept as well as the MA3 and MA9 terms.
+
+We cannot reject the null hypothesis that there is no temporal correlation between residual points. 
+
+```r
+Box.test(ma.est$residuals, lag = 10, type = "Ljung", fitdf = 3)
+## 
+## 	Box-Ljung test
+## 
+## data:  ma.est$residuals
+## X-squared = 7.6516, df = 7, p-value = 0.3643
+```
+### forecasting 1 time step ahead
+
+
+
+```r
+fitted(ma.est, h=1)
+## Time Series:
+## Start = 1 
+## End = 60 
+## Frequency = 1 
+##  [1]  90116.64  80626.91  74090.45  38321.61  74734.77 101153.20  65930.90
+##  [8] 106351.80 104138.05  86938.99 102868.16  80502.02  81466.01  77619.15
+## [15] 100984.93  81463.10  61622.54  79660.81  88563.91  65370.99 104679.89
+## [22]  48047.39  73070.29 115034.16  80034.03  70052.29  70728.85  90437.86
+## [29]  80684.44  91533.59 101668.18  42273.27  93055.40  68187.65  75863.50
+## [36]  40195.15  82368.91  90605.60  69924.83  54032.55  90866.20  85839.41
+## [43]  64932.70  43030.64  85575.32  76561.14  82047.95  95683.35  66553.13
+## [50]  89532.20  85102.64  80937.97  93926.74  47468.84  75223.67 100887.60
+## [57]  92059.32  84459.85  67112.16  80917.23
+```
+
+MA models exhibit strong mean reversion and so forecasts rapidly converge to the mean of the process. This makes sense given that the process is considered to be a function of white noise.
+
+
+```r
+plot(df$Banking.orders..2., type = 'l')
+lines(fitted(ma.est, h=1), col = 3, lwd = 5) ## use the forecast package
+```
+
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="100%" />
+
+If you forecast beyond the range of the model established by its order, the forecast will necessarily be the mean of the process by definition of the process. Consider an MA(1) model:
+`\(yt = μ + θ1 × et -1 + et\)`
+To predict one time step in the future, our estimate for `\(y_{t+1} = μ + θ1 × yt + et\)`. 
+
+If we want to predict two time steps in the future, our estimate is: 
+`\(E(y_{t+2} =μ+e_{t+2} +θ_1 ×e_{t+1})=μ+0+θ_1 ×0=μ\)`
+
+With an MA(1) process we cannot offer an informed prediction beyond one step ahead, and for an MA(q) process in general we cannot offer a more informed predic‐ tion beyond q steps than the mean value emitted by the process. By informed predic‐ tion, I mean one in which our most recent measurements have an impact on the forecast.
+
+
+We can see this by producing predictions with our MA(9) model that we just fit, and for which we now seek predictions 10 time steps ahead.
+
+When we attempt to predict 10 time steps into the future, we predict the mean for every time step
+
+```r
+fitted(ma.est, h=10)
+## Time Series:
+## Start = 1 
+## End = 60 
+## Frequency = 1 
+##  [1]       NA       NA       NA       NA       NA       NA       NA       NA
+##  [9]       NA       NA 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81
+## [17] 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81
+## [25] 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81
+## [33] 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81
+## [41] 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81
+## [49] 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81 79689.81
+## [57] 79689.81 79689.81 79689.81 79689.81
+```
 ## more complicated case
 
 
@@ -320,7 +411,7 @@ plot(AirPassengers)
 abline(reg=lm(AirPassengers~time(AirPassengers)))
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-18-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-22-1.png" width="100%" />
 
 ```r
 # This will fit in a line
@@ -348,7 +439,7 @@ cycle(AirPassengers)
 plot(aggregate(AirPassengers,FUN=mean))
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-1.png" width="100%" />
 
 ```r
 #This will aggregate the cycles and display a year on year trend
@@ -356,7 +447,7 @@ plot(aggregate(AirPassengers,FUN=mean))
 boxplot(AirPassengers~cycle(AirPassengers))
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-19-2.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-2.png" width="100%" />
 
 ```r
 #Box plot across months will give us a sense on seasonal effect
@@ -424,7 +515,7 @@ Next step is to find the right parameters to be used in the ARIMA model. We alre
 acf(diff(log(AirPassengers)))
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-21-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-25-1.png" width="100%" />
 
 ```r
 
@@ -432,7 +523,7 @@ acf(diff(log(AirPassengers)))
 pacf(diff(log(AirPassengers)))
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-21-2.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-25-2.png" width="100%" />
 
 Clearly, ACF plot cuts off after the first lag. Hence, we understood that value of p should be 0 as the ACF is the curve getting a cut off. While value of q should be 1 or 2. After a few iterations, we found that (0,1,1) as (p,d,q) comes out to be the combination with least AIC and BIC.
 
@@ -472,5 +563,5 @@ pred <- predict(fit, n.ahead = 10*12)
 ts.plot(AirPassengers,2.718^pred$pred, log = "y", lty = c(1,3))
 ```
 
-<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-23-1.png" width="100%" />
+<img src="{{< blogdown/postref >}}index_files/figure-html/unnamed-chunk-27-1.png" width="100%" />
 
